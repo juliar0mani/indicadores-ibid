@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Cotações — Participação e Conversão</title>
+<link href="../assets/css/fonts.css" rel="stylesheet">
+<script src="../assets/libs/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#12181b; --panel:#1a2226; --panel-2:#212b30; --line:#2c383e;
+    --text:#e9edee; --text-dim:#8fa1a7;
+    --accent:#d98a3d; --accent-2:#3ba39b;
+    --verde:#4a9d6f; --amarelo:#d9a63d; --vermelho:#c85d4d; --cinza:#5b6a70;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:'IBM Plex Sans', sans-serif; padding:32px 40px 60px; }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  header{ display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--line); padding-bottom:20px; margin-bottom:28px; flex-wrap:wrap; gap:16px; }
+  .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+  h1{ font-size:26px; font-weight:600; letter-spacing:-0.01em; }
+  .period-tag{ font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-dim); text-align:right; }
+  .period-tag strong{color:var(--text); display:block; font-size:15px; margin-bottom:2px;}
+ 
+  .kpi-row{ display:grid; grid-template-columns:repeat(5, 1fr); gap:14px; margin-bottom:28px; }
+  .kpi{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; position:relative; overflow:hidden; }
+  .kpi::before{ content:""; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--accent); }
+  .kpi.crit::before{background:var(--vermelho);}
+  .kpi-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:8px; }
+  .kpi-value{ font-family:'IBM Plex Mono', monospace; font-size:25px; font-weight:600; line-height:1.1; }
+  .kpi-sub{ margin-top:8px; font-size:11.5px; color:var(--text-dim); }
+ 
+  .section-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-2); margin:32px 0 12px; }
+  .section-label:first-of-type{ margin-top:0; }
+ 
+  .grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:16px; margin-bottom:16px; }
+  .grid.two{ grid-template-columns:1fr 1fr; }
+  .grid.three{ grid-template-columns:1fr 1fr 1fr; }
+  .panel{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px 22px; }
+  .panel-title{ font-size:14px; font-weight:600; margin-bottom:2px; }
+  .panel-title.crit{ color:var(--vermelho); }
+  .panel-title.good{ color:var(--verde); }
+  .panel-desc{ font-size:12px; color:var(--text-dim); margin-bottom:16px; }
+  .full{grid-column:1 / -1;}
+ 
+  table{width:100%; border-collapse:collapse; font-size:12px;}
+  th{ text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500; padding:7px 7px; border-bottom:1px solid var(--line); }
+  td{ padding:7px 7px; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono', monospace; }
+  td.name{font-family:'IBM Plex Sans', sans-serif; font-weight:500; font-size:12px;}
+  td.rank{color:var(--text-dim); width:20px;}
+  tr:last-child td{border-bottom:none;}
+  .bar-cell{display:flex; align-items:center; gap:8px;}
+  .bar-track{ flex:1; height:6px; background:#2a3438; border-radius:3px; overflow:hidden; min-width:44px; }
+  .bar-fill{height:100%; border-radius:3px;}
+ 
+  .attention-list{ display:flex; flex-direction:column; gap:10px; }
+  .attention-item{ display:flex; gap:12px; align-items:flex-start; padding:12px 14px; background:var(--panel-2); border-radius:5px; border-left:3px solid var(--vermelho); }
+  .attention-item.warn{border-left-color:var(--amarelo);}
+  .attention-item.info{border-left-color:var(--accent-2);}
+  .attention-item.good{border-left-color:var(--verde);}
+  .attention-item .txt{font-size:13px; line-height:1.5; color:var(--text);}
+  .attention-item .txt b{color:var(--text);}
+  .attention-item .txt span{color:var(--text-dim);}
+ 
+  .reco-list{ display:flex; flex-direction:column; gap:10px; counter-reset:reco; }
+  .reco-item{ display:flex; gap:12px; padding:12px 14px; background:var(--panel-2); border-radius:5px; }
+  .reco-num{ font-family:'IBM Plex Mono', monospace; font-weight:700; color:var(--accent); flex-shrink:0; }
+  .reco-item .txt{font-size:13px; line-height:1.5;}
+  .reco-item .txt b{color:var(--text);}
+  .reco-item .txt span{color:var(--text-dim);}
+ 
+  canvas{max-height:300px;}
+  footer{ margin-top:28px; font-size:11px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace; border-top:1px solid var(--line); padding-top:14px; line-height:1.6; }
+ 
+  @media (max-width:960px){
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .grid, .grid.two, .grid.three{grid-template-columns:1fr;}
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-dim);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-2); }
+</style>
+</head>
+<body>
+ 
+<a class="back-link mono" href="../index.html">&larr; voltar ao menu</a>
+<header>
+  <div>
+    <div class="eyebrow">Portal de Compras — Cotações</div>
+    <h1>Painel de Participação e Conversão de Fornecedores</h1>
+  </div>
+  <div class="period-tag">
+    <strong>Jun a Ago/2026</strong>
+    158 processos · 156 fornecedores únicos (3 cadastros ERP duplicados unificados)
+  </div>
+</header>
+ 
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">Cotações recebidas</div>
+    <div class="kpi-value mono">434</div>
+    <div class="kpi-sub">soma por fornecedor único</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Taxa de resposta</div>
+    <div class="kpi-value mono" style="color:var(--verde)">47,2%</div>
+    <div class="kpi-sub">205 de 434 cotações</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Pedidos gerados</div>
+    <div class="kpi-value mono">105</div>
+    <div class="kpi-sub">72,2% das 151 cotações do tipo Compra</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Compras sem pedido</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">42</div>
+    <div class="kpi-sub">27,8% das 151 compras</div>
+  </div>
+  <div class="kpi crit">
+    <div class="kpi-label">Pior conversão por comprador</div>
+    <div class="kpi-value mono" style="font-size:19px; color:var(--vermelho)">Vanessa</div>
+    <div class="kpi-sub">0% dos 4 processos de Compra</div>
+  </div>
+</div>
+ 
+<div class="section-label">Funil de participação</div>
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">Funil geral</div>
+    <div class="panel-desc">421 convites enviados a nível de processo (base_jul)</div>
+    <canvas id="funnelChart"></canvas>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Composição (%)</div>
+    <div class="panel-desc">Distribuição dos 4 desfechos</div>
+    <canvas id="pieChart"></canvas>
+  </div>
+</div>
+ 
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title">Funil por comprador</div>
+    <div class="panel-desc">Composição percentual dos desfechos, por comprador responsável</div>
+    <canvas id="buyerChart"></canvas>
+  </div>
+</div>
+ 
+<div class="section-label">Conversão em pedido</div>
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title">Cotações por tipo</div>
+    <div class="panel-desc">"Tomada de preço" e "Contrato" são pesquisa de mercado/negociação — não precisam virar pedido. Só "Compra" entra na meta de conversão.</div>
+    <table>
+      <thead><tr><th>Tipo</th><th>Processos</th><th>Participantes</th><th>Média/cotação</th><th>Responderam</th><th>Totalmente gerado</th><th>Parcialmente</th><th>Não gerado</th><th style="width:18%">Precisa converter?</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="name">Compra</td>
+          <td class="mono">151</td>
+          <td class="mono">400</td>
+          <td class="mono">2,65</td>
+          <td class="mono">185</td>
+          <td class="mono" style="color:var(--verde)">105</td>
+          <td class="mono" style="color:var(--amarelo)">4</td>
+          <td class="mono" style="color:var(--vermelho)">42</td>
+          <td><span class="status-ok" style="color:var(--verde)">Sim</span></td>
+        </tr>
+        <tr>
+          <td class="name">Tomada de preço</td>
+          <td class="mono">4</td>
+          <td class="mono">15</td>
+          <td class="mono">3,75</td>
+          <td class="mono">3</td>
+          <td class="mono">0</td>
+          <td class="mono">0</td>
+          <td class="mono">4</td>
+          <td><span style="color:var(--text-dim)">Não — pesquisa de mercado</span></td>
+        </tr>
+        <tr>
+          <td class="name">Contrato</td>
+          <td class="mono">3</td>
+          <td class="mono">6</td>
+          <td class="mono">2,00</td>
+          <td class="mono">3</td>
+          <td class="mono">0</td>
+          <td class="mono">0</td>
+          <td class="mono">3</td>
+          <td><span style="color:var(--text-dim)">Não — negociação à parte</span></td>
+        </tr>
+        <tr style="border-top:1px solid var(--line);">
+          <td class="name" style="font-weight:600;">Total / média geral</td>
+          <td class="mono" style="font-weight:600;">158</td>
+          <td class="mono" style="font-weight:600;">421</td>
+          <td class="mono" style="font-weight:600;">2,66</td>
+          <td class="mono" style="font-weight:600;">191</td>
+          <td class="mono" style="font-weight:600;">105</td>
+          <td class="mono" style="font-weight:600;">4</td>
+          <td class="mono" style="font-weight:600;">49</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+ 
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title">Cotação virou pedido? — por comprador (só tipo Compra)</div>
+    <div class="panel-desc">% de processos totalmente gerados, parcialmente gerados ou não gerados — Maike fica de fora aqui: seu único processo é "Tomada de preço"</div>
+    <canvas id="conversionChart"></canvas>
+  </div>
+</div>
+ 
+<div class="section-label">Análise de fornecedores</div>
+<div class="grid two">
+  <div class="panel">
+    <div class="panel-title">Top 10 — mais convidados para cotação</div>
+    <div class="panel-desc">Volume de cotações recebidas x respondidas</div>
+    <table>
+      <thead><tr><th>#</th><th>Fornecedor</th><th>Receb.</th><th>Resp.</th><th style="width:30%">Taxa</th></tr></thead>
+      <tbody id="topTableBody"></tbody>
+    </table>
+  </div>
+  <div class="panel">
+    <div class="panel-title crit">Top 10 — críticos</div>
+    <div class="panel-desc">Recebem muita cotação e respondem pouco (mín. 3 convites)</div>
+    <table>
+      <thead><tr><th>#</th><th>Fornecedor</th><th>Receb.</th><th>Resp.</th><th style="width:30%">Taxa</th></tr></thead>
+      <tbody id="critTableBody"></tbody>
+    </table>
+  </div>
+</div>
+ 
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title good">Top 10 — melhor aproveitamento (pedidos por cotação)</div>
+    <div class="panel-desc">Fornecedores com mín. 3 cotações recebidas e maior proporção de pedidos recebidos — atenção: "pedidos recebidos" é uma contagem histórica do cadastro, não exclusiva desta cotação, por isso a razão pode passar de 100%</div>
+    <table>
+      <thead><tr><th>#</th><th>Fornecedor</th><th>Cotações receb.</th><th>Pedidos receb.</th><th style="width:26%">Pedidos / cotação</th></tr></thead>
+      <tbody id="convTableBody"></tbody>
+    </table>
+  </div>
+</div>
+ 
+<div class="grid two">
+  <div class="panel">
+    <div class="panel-title">Pontos de atenção</div>
+    <div class="attention-list">
+      <div class="attention-item">
+        <div class="txt"><b>Vanessa</b> teve <b>0% de conversão em pedido</b> nos 4 processos de Compra que conduziu — <span>nenhum "totalmente gerado"; vale investigar caso a caso</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>Tamara</b> concentra o maior volume (243 convites / 83 processos) mas taxa de resposta de fornecedor de 36,2% — <span>maior número absoluto de declínios (50)</span></div>
+      </div>
+      <div class="attention-item good">
+        <div class="txt">3 razões sociais que apareciam com <b>ERPs distintos</b> foram unificadas nos rankings — <span>159 cadastros → 156 fornecedores únicos; histórico de participação consolidado</span></div>
+      </div>
+      <div class="attention-item info">
+        <div class="txt">Nenhum fornecedor que respondeu 3+ cotações ficou com 0 pedidos — <span>bom sinal: quem responde, historicamente, converte</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Recomendações</div>
+    <div class="reco-list">
+      <div class="reco-item"><span class="reco-num">1</span><div class="txt"><b>Revisar cadastro dos 4 fornecedores com 0% de resposta</b> — <span>confirmar e-mail/contato ativo antes de continuar convidando</span></div></div>
+      <div class="reco-item"><span class="reco-num">2</span><div class="txt"><b>Investigar o processo da Vanessa</b> — <span>0% de conversão em 4 cotações de Compra pode indicar problema pontual (preço, prazo, tipo de item) e não necessariamente do fornecedor</span></div></div>
+      <div class="reco-item"><span class="reco-num">3</span><div class="txt"><b>Priorizar contato ativo com os 3 "críticos" de maior volume</b> — <span>Ferragem Aurora, Ferramentas Gerais e Marco Aurélio somam 80 convites com taxa média de 37%</span></div></div>
+    </div>
+  </div>
+</div>
+ 
+<footer>
+  Fonte: indicador_cotação.xlsx (abas base_jul, fornecedor x cotação, compradores, Análise Fornecedores) · 156 fornecedores únicos · KPIs de conversão consideram só o tipo Compra (151 processos) · Gap entre 421 e 434 convites segue sem causa confirmada.
+</footer>
+ 
+<script>
+Chart.defaults.color = '#8fa1a7';
+Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+Chart.defaults.font.size = 11;
+ 
+// ---- Funil geral ----
+new Chart(document.getElementById('funnelChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Participantes', 'Responderam', 'Não abriram', 'Declinaram', 'Abriram s/ resp.'],
+    datasets: [{ data: [421, 191, 114, 59, 57], backgroundColor: ['#5b6a70', '#4a9d6f', '#d9a63d', '#c85d4d', '#8fa1a7'], borderRadius: 3 }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: { x: { beginAtZero: true, grid: { color: '#2c383e' } }, y: { grid: { display: false } } }
+  }
+});
+ 
+// ---- Pie ----
+new Chart(document.getElementById('pieChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Responderam', 'Não abriram', 'Declinaram', 'Abriram s/ resp.'],
+    datasets: [{ data: [191, 114, 59, 57], backgroundColor: ['#4a9d6f', '#d9a63d', '#c85d4d', '#8fa1a7'], borderColor: '#1a2226', borderWidth: 2 }]
+  },
+  options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } } }
+});
+ 
+// ---- Funil por comprador ----
+const buyers = [
+  { name: 'Amanda', part:142, na:35, asr:12, resp:86, decl:9 },
+  { name: 'Tamara', part:243, na:66, asr:39, resp:88, decl:50 },
+  { name: 'Vanessa', part:21, na:8, asr:5, resp:8, decl:0 },
+  { name: 'Gisele', part:10, na:2, asr:0, resp:8, decl:0 },
+  { name: 'Matiano', part:1, na:0, asr:0, resp:1, decl:0 },
+  { name: 'Maike', part:4, na:3, asr:1, resp:0, decl:0 },
+];
+new Chart(document.getElementById('buyerChart'), {
+  type: 'bar',
+  data: {
+    labels: buyers.map(b => b.name),
+    datasets: [
+      { label: 'Responderam', data: buyers.map(b => +(b.resp/b.part*100).toFixed(1)), backgroundColor: '#4a9d6f' },
+      { label: 'Não abriram', data: buyers.map(b => +(b.na/b.part*100).toFixed(1)), backgroundColor: '#d9a63d' },
+      { label: 'Declinaram', data: buyers.map(b => +(b.decl/b.part*100).toFixed(1)), backgroundColor: '#c85d4d' },
+      { label: 'Abriram s/ resp.', data: buyers.map(b => +(b.asr/b.part*100).toFixed(1)), backgroundColor: '#8fa1a7' },
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } }
+    }
+  }
+});
+ 
+// ---- Conversão em pedido por comprador (só tipo Compra) ----
+const conv = [
+  { name: 'Amanda', total:43, parcial:1, nao:13 },
+  { name: 'Tamara', total:55, parcial:3, nao:23 },
+  { name: 'Gisele', total:6, parcial:0, nao:1 },
+  { name: 'Matiano', total:1, parcial:0, nao:1 },
+  { name: 'Vanessa', total:0, parcial:0, nao:4 },
+];
+new Chart(document.getElementById('conversionChart'), {
+  type: 'bar',
+  data: {
+    labels: conv.map(c => c.name),
+    datasets: [
+      { label: 'Totalmente gerado', data: conv.map(c => {const t=c.total+c.parcial+c.nao; return t? +(c.total/t*100).toFixed(1):0;}), backgroundColor: '#4a9d6f' },
+      { label: 'Parcialmente gerado', data: conv.map(c => {const t=c.total+c.parcial+c.nao; return t? +(c.parcial/t*100).toFixed(1):0;}), backgroundColor: '#d9a63d' },
+      { label: 'Não gerado', data: conv.map(c => {const t=c.total+c.parcial+c.nao; return t? +(c.nao/t*100).toFixed(1):0;}), backgroundColor: '#c85d4d' },
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } }
+    }
+  }
+});
+ 
+function renderTable(id, rows, ratioIdx, capAt100) {
+  const tbody = document.getElementById(id);
+  rows.forEach((row, i) => {
+    const [name, a, b] = row;
+    let pct = a ? (b / a * 100) : 0;
+    const displayPct = capAt100 ? Math.min(pct, 100) : pct;
+    const color = pct >= 50 ? 'var(--verde)' : (pct >= 25 ? 'var(--amarelo)' : 'var(--vermelho)');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="rank mono">${i+1}</td>
+      <td class="name">${name}</td>
+      <td class="mono">${a}</td>
+      <td class="mono">${b}</td>
+      <td>
+        <div class="bar-cell">
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.min(displayPct,100)}%; background:${color}"></div></div>
+          <span class="mono" style="min-width:38px; text-align:right;">${pct.toFixed(0)}%</span>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+ 
+renderTable('topTableBody', [
+  ['MARCO AURELIO TEIXEIRA DA SILVA', 28, 13],
+  ['FERRAGEM AURORA', 27, 9],
+  ['FERRAMENTAS GERAIS COM. IMPORT.', 25, 8],
+  ['CONTINENTAL FERRAMENTAS', 23, 8],
+  ['DR SUPRIMENTOS ESCRITÓRIO', 19, 4],
+  ['CENTRAL DE FERRAMENTAS GMR', 18, 10],
+  ['G 3 DISTRIBUIDORA ESCRITÓRIO', 15, 12],
+  ['STI COMPUTADORES', 12, 6],
+  ['ELETROPEÇAS COMERCIAL', 8, 6],
+  ['ART MAGIC PROD. LIMPEZA', 7, 2],
+]);
+ 
+renderTable('critTableBody', [
+  ['ACEFRAN EMBALAGENS', 3, 0],
+  ['APOLO COMP. ELETRÔNICOS', 5, 0],
+  ['POLLI MAT. P/ CONSTRUÇÃO', 3, 0],
+  ['LF COMERCIAL DE BENS', 5, 0],
+  ['ELETRUS COMPONENTES', 5, 1],
+  ['DR SUPRIMENTOS ESCRITÓRIO', 19, 4],
+  ['MENON COM E REPR', 4, 1],
+  ['VALMASTER TUBOS E CONEXÕES', 4, 1],
+  ['VKX AUTOMAÇÃO INDUSTRIAL', 4, 1],
+  ['ART MAGIC PROD. LIMPEZA', 7, 2],
+]);
+ 
+renderTable('convTableBody', [
+  ['TECHFER FERRAMENTAS', 4, 7],
+  ['E D PROD. LIMPEZA', 3, 5],
+  ['SULMAX FERRAMENTAS', 4, 5],
+  ['G 3 DISTRIBUIDORA ESCRITÓRIO', 15, 14],
+  ['IRMÃOS ANDREAZZA', 4, 3],
+  ['VOLARE COMÉRCIO ELETRÔNICOS', 7, 5],
+  ['BRS SP SUPRIMENTOS', 3, 2],
+  ['MAD BRINDES', 3, 2],
+  ['MAGNANI E CIA', 3, 2],
+  ['CELETRO CAXIAS MAT. ELÉTRICOS', 5, 3],
+], null, false);
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indicadores IBID</title>
+<link href="assets/css/fonts.css" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12181b;
+    --panel:#1a2226;
+    --panel-2:#212b30;
+    --line:#2c383e;
+    --text:#e9edee;
+    --text-dim:#8fa1a7;
+    --accent:#d98a3d;
+    --accent-2:#3ba39b;
+    --verde:#4a9d6f;
+    --amarelo:#d9a63d;
+    --vermelho:#c85d4d;
+    --cinza:#5b6a70;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    padding:48px 40px 60px;
+    min-height:100vh;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  header{
+    border-bottom:1px solid var(--line);
+    padding-bottom:24px;
+    margin-bottom:40px;
+    max-width:1100px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  h1{
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin-bottom:8px;
+  }
+  .subtitle{
+    color:var(--text-dim);
+    font-size:14px;
+  }
+
+  .cards{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+
+  a.card{
+    display:block;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:26px 24px;
+    text-decoration:none;
+    color:var(--text);
+    transition:border-color .15s ease, transform .15s ease, background .15s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  a.card:hover{
+    border-color:var(--accent-2);
+    background:var(--panel-2);
+    transform:translateY(-2px);
+  }
+  a.card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:3px;
+    background:var(--accent-color, var(--accent));
+  }
+  .card-icon{
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:18px;
+    background:rgba(217,138,61,0.12);
+    color:var(--accent);
+  }
+  .card.cotacoes .card-icon{ background:rgba(59,163,155,0.14); color:var(--accent-2); }
+  .card.aprovador .card-icon{ background:rgba(74,157,111,0.14); color:var(--verde); }
+
+  .card-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin-bottom:8px;
+  }
+  .card-title{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .card-desc{
+    font-size:13px;
+    color:var(--text-dim);
+    line-height:1.5;
+    margin-bottom:20px;
+  }
+  .card-cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--accent-2);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card-cta .arrow{ transition:transform .15s ease; }
+  a.card:hover .card-cta .arrow{ transform:translateX(3px); }
+
+  footer{
+    max-width:1100px;
+    margin:48px auto 0;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-dim);
+  }
+
+  @media (max-width: 900px){
+    .cards{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow mono">Compras · IBID</div>
+  <h1>Indicadores de Compras - IBID</h1>
+  <div class="subtitle mono">Selecione um painel para visualizar os indicadores</div>
+</header>
+
+<div class="cards">
+
+  <a class="card adesao" href="paineis/pedidos.html">
+    <div class="card-icon mono">01</div>
+    <div class="card-label">Adesão</div>
+    <div class="card-title">Adesão dos Compradores</div>
+    <div class="card-desc">Pedidos feitos pelo portal vs. ERP.</div>
+    <div class="card-cta">Abrir painel <span class="arrow">→</span></div>
+  </a>
+
+  <a class="card aprovador" href="paineis/aprovador.html">
+    <div class="card-icon mono">02</div>
+    <div class="card-label">Aprovador</div>
+    <div class="card-title">Aprovações</div>
+    <div class="card-desc">Tempo médio de aprovação por nível e por aprovador.</div>
+    <div class="card-cta">Abrir painel <span class="arrow">→</span></div>
+  </a>
+
+  <a class="card cotacoes" href="paineis/cotacoes.html">
+    <div class="card-icon mono">03</div>
+    <div class="card-label">Cotações</div>
+    <div class="card-title">Adesão Fornecedores</div>
+    <div class="card-desc">Participação e taxa de conversão de fornecedores por rodada e comprador.</div>
+    <div class="card-cta">Abrir painel <span class="arrow">→</span></div>
+  </a>
+
+</div>
+
+<footer>painel-compras · atualizado manualmente a cada fechamento quinzenal</footer>
+
+</body>
+</html>
