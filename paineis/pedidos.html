@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Adesão ao Portal de Compras</title>
+<link href="../assets/css/fonts.css" rel="stylesheet">
+<script src="../assets/libs/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#12181b;
+    --panel:#1a2226;
+    --panel-2:#212b30;
+    --line:#2c383e;
+    --text:#e9edee;
+    --text-dim:#8fa1a7;
+    --accent:#d98a3d;
+    --accent-2:#3ba39b;
+    --verde:#4a9d6f;
+    --amarelo:#d9a63d;
+    --vermelho:#c85d4d;
+    --cinza:#5b6a70;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    padding:32px 40px 60px;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:6px;
+  }
+  h1{
+    font-size:26px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .period-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--text-dim);
+    text-align:right;
+  }
+  .period-tag strong{color:var(--text); display:block; font-size:15px; margin-bottom:2px;}
+ 
+  .kpi-row{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+    margin:32px 0 12px;
+  }
+  .section-label:first-of-type{ margin-top:0; }
+  .kpi{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px 20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .kpi::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:3px; height:100%;
+    background:var(--accent);
+  }
+  .kpi-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-dim);
+    margin-bottom:8px;
+  }
+  .kpi-value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:30px;
+    font-weight:600;
+    line-height:1;
+  }
+  .kpi-sub{
+    margin-top:8px;
+    font-size:12.5px;
+    color:var(--text-dim);
+  }
+  .kpi-sub.up{color:var(--verde);}
+  .kpi-sub.down{color:var(--vermelho);}
+ 
+  .grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px 22px;
+  }
+  .panel-title{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .panel-desc{
+    font-size:12px;
+    color:var(--text-dim);
+    margin-bottom:16px;
+  }
+  .full{grid-column:1 / -1;}
+ 
+  /* Buyer table */
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--text-dim);
+    font-weight:500;
+    padding:8px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  td{
+    padding:10px 10px;
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  td.name{font-family:'IBM Plex Sans', sans-serif; font-weight:500;}
+  tr:last-child td{border-bottom:none;}
+  .bar-cell{display:flex; align-items:center; gap:10px;}
+  .bar-track{
+    flex:1;
+    height:6px;
+    background:#2a3438;
+    border-radius:3px;
+    overflow:hidden;
+    min-width:60px;
+  }
+  .bar-fill{height:100%; border-radius:3px;}
+  .dot{
+    display:inline-block;
+    width:8px; height:8px;
+    border-radius:50%;
+    margin-right:6px;
+  }
+  .status-badge{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:20px;
+    font-weight:500;
+  }
+ 
+  .attention-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .attention-item{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:12px 14px;
+    background:var(--panel-2);
+    border-radius:5px;
+    border-left:3px solid var(--vermelho);
+  }
+  .attention-item.warn{border-left-color:var(--amarelo);}
+  .attention-item.info{border-left-color:var(--accent-2);}
+  .attention-item .txt{font-size:13px; line-height:1.5; color:var(--text);}
+  .attention-item .txt b{color:var(--text);}
+  .attention-item .txt span{color:var(--text-dim);}
+ 
+  canvas{max-height:280px;}
+ 
+  footer{
+    margin-top:28px;
+    font-size:11.5px;
+    color:var(--text-dim);
+    font-family:'IBM Plex Mono', monospace;
+    border-top:1px solid var(--line);
+    padding-top:14px;
+  }
+ 
+  @media (max-width:900px){
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .grid, .grid.two{grid-template-columns:1fr;}
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-dim);
+    text-decoration:none;
+    margin-bottom:16px;
+  }
+  .back-link:hover{ color:var(--accent-2); }
+</style>
+</head>
+<body>
+ 
+<a class="back-link mono" href="../index.html">&larr; voltar ao menu</a>
+<header>
+  <div>
+    <div class="eyebrow">Migração ERP &rarr; Portal de Compras</div>
+    <h1>Painel de Adesão — Pedidos por Comprador</h1>
+  </div>
+  <div class="period-tag">
+    <strong>17/06 a 31/07/2026</strong>
+    3 quinzenas · Total geral vs ERP-TOTVS x Portal (IBID)
+  </div>
+</header>
+ 
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">Total de Pedidos</div>
+    <div class="kpi-value mono">1.166</div>
+    <div class="kpi-sub">340 + 408 + 418 pedidos</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Ritmo atual (última quinzena)</div>
+    <div class="kpi-value mono" style="color:var(--verde)">26,3%</div>
+    <div class="kpi-sub up">▲ +19,4 p.p. vs quinzena anterior</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Comprador líder em adesão</div>
+    <div class="kpi-value mono" style="font-size:22px; color:var(--accent)">Matiano</div>
+    <div class="kpi-sub">53,6% dos pedidos via portal</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Compradores sem adesão</div>
+    <div class="kpi-value mono" style="color:var(--vermelho)">2</div>
+    <div class="kpi-sub">Maike e Miguel — 0% no portal</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Adesão do mês</div>
+    <div class="kpi-value mono" style="font-size:20px;">14,7% <span style="color:var(--text-dim); font-size:15px;">&rarr;</span> <span style="color:var(--verde)">16,7%</span></div>
+    <div class="kpi-sub up">▲ Junho → Julho (826 pedidos em jul.)</div>
+  </div>
+</div>
+ 
+<div class="section-label">Meta de adesão — mês a mês</div>
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel full">
+    <div class="panel-title">Adesão total realizada x meta mensal (2026)</div>
+    <div class="panel-desc">% de pedidos feitos pelo portal em relação ao total, por mês fechado</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Mês</th>
+          <th>Adesão realizada</th>
+          <th>Meta</th>
+          <th style="width:20%">Status</th>
+        </tr>
+      </thead>
+      <tbody id="goalTableBody"></tbody>
+    </table>
+  </div>
+</div>
+ 
+<div class="section-label">Visão geral — quinzenal</div>
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">Evolução da adesão ao portal (%)</div>
+    <div class="panel-desc">% de pedidos feitos pelo IBID em relação ao total, por quinzena</div>
+    <canvas id="trendChart"></canvas>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Volume de pedidos: ERP x Portal</div>
+    <div class="panel-desc">Contagem absoluta por quinzena</div>
+    <canvas id="volumeChart"></canvas>
+  </div>
+</div>
+ 
+<div class="section-label">Por comprador — quinzenal</div>
+<div class="grid">
+  <div class="panel full">
+    <div class="panel-title">Adesão por comprador — última quinzena (16/07 a 31/07)</div>
+    <div class="panel-desc">Meta de referência: <span id="buyerMetaLabel"></span></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Comprador</th>
+          <th>Pedidos (portal / total)</th>
+          <th style="width:38%">% de adesão</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="buyerTableBody"></tbody>
+    </table>
+  </div>
+</div>
+ 
+<div class="section-label">Por comprador — comparação mensal</div>
+<div class="grid" style="grid-template-columns:1.2fr 1fr;">
+  <div class="panel">
+    <div class="panel-title">Adesão ao portal — Junho x Julho</div>
+    <div class="panel-desc">% de adesão por comprador, lado a lado nos dois meses</div>
+    <canvas id="monthlyBuyerChart"></canvas>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Variação mês a mês</div>
+    <div class="panel-desc">Diferença em pontos percentuais, Junho → Julho</div>
+    <table>
+      <thead>
+        <tr><th>Comprador</th><th>Jun</th><th>Jul</th><th style="width:26%">Variação</th></tr>
+      </thead>
+      <tbody id="monthlyCompareBody"></tbody>
+    </table>
+  </div>
+</div>
+ 
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">Situação dos pedidos no portal</div>
+    <div class="panel-desc">Distribuição percentual por quinzena — onde os pedidos estão parados</div>
+    <canvas id="statusChart"></canvas>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Pontos de atenção</div>
+    <div class="panel-desc">Achados que merecem acompanhamento</div>
+    <div class="attention-list">
+      <div class="attention-item">
+        <div class="txt"><b>Maike e Miguel</b> não fizeram nenhum pedido pelo portal — <span>100% ERP, volume baixo (2 e 12 pedidos)</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>"Em aprovação"</b> saltou para 29 pedidos (26% dos pedidos do portal) na última quinzena — <span>possível gargalo no fluxo interno de aprovação</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>Pendente de sincronização com ERP</b> cresceu de 1 para 6 pedidos — <span>vale checar se é falha de integração</span></div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+ 
+<footer>
+  Fonte: indicador_pedidos.xlsx (abas RESUMO, fluxo_jun, fluxo1_jul, fluxo2_jul).
+</footer>
+ 
+<script>
+Chart.defaults.color = '#8fa1a7';
+Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
+Chart.defaults.font.size = 11.5;
+ 
+const periods = ['Jun (17/06-01/07)', 'Jul (02/07-15/07)', 'Jul (16/07-31/07)'];
+ 
+const overall = {
+  total: [340, 408, 418],
+  erp: [290, 380, 308],
+  ibid: [50, 28, 110],
+  pct: [14.7, 6.9, 26.3]
+};
+ 
+// Meta de adesão — fonte única, usada na tabela do setor (macro) e na tabela por comprador (individual)
+const monthlyGoals = { Jul: 20, Ago: 40, Set: 50, Out: 75, Nov: 85, Dez: 100 };
+const currentMonth = 'Jul'; // mês de referência atual — atualizar aqui a cada virada de mês
+ 
+const goalMonths = Object.keys(monthlyGoals);
+const goalTarget = Object.values(monthlyGoals);
+// Realizado: só preenchido para meses já fechados. Atualizar aqui a cada fechamento de mês.
+const goalActual = [16.7, null, null, null, null, null];
+ 
+const goalBody = document.getElementById('goalTableBody');
+goalMonths.forEach((mes, i) => {
+  const realizado = goalActual[i];
+  const meta = goalTarget[i];
+  const tr = document.createElement('tr');
+ 
+  let realizadoHtml, statusHtml;
+  if (realizado === null) {
+    realizadoHtml = `<span class="mono" style="color:var(--text-dim);">— mês em aberto</span>`;
+    statusHtml = `<span class="status-badge" style="background:var(--cinza)22; color:var(--cinza)"><span class="dot" style="background:var(--cinza)"></span>Aguardando fechamento</span>`;
+  } else {
+    const bateu = realizado >= meta;
+    const color = bateu ? 'var(--verde)' : 'var(--vermelho)';
+    const diff = Math.abs(realizado - meta).toFixed(1);
+    realizadoHtml = `<span class="mono" style="font-weight:600;">${realizado.toFixed(1)}%</span>`;
+    statusHtml = `<span class="status-badge" style="background:${color}22; color:${color}"><span class="dot" style="background:${color}"></span>${bateu ? 'Bateu a meta' : `Não bateu (-${diff} p.p.)`}</span>`;
+  }
+ 
+  tr.innerHTML = `
+    <td class="name">${mes}</td>
+    <td>${realizadoHtml}</td>
+    <td class="mono">${meta}%</td>
+    <td>${statusHtml}</td>
+  `;
+  goalBody.appendChild(tr);
+});
+ 
+// Trend chart
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: periods,
+    datasets: [{
+      label: '% adesão ao portal',
+      data: overall.pct,
+      borderColor: '#d98a3d',
+      backgroundColor: 'rgba(217,138,61,0.12)',
+      fill: true,
+      tension: 0.35,
+      pointRadius: 5,
+      pointBackgroundColor: '#d98a3d',
+      borderWidth: 2.5
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+ 
+// Volume chart
+new Chart(document.getElementById('volumeChart'), {
+  type: 'bar',
+  data: {
+    labels: periods,
+    datasets: [
+      { label: 'ERP - TOTVS', data: overall.erp, backgroundColor: '#5b6a70', borderRadius: 3 },
+      { label: 'Portal (IBID)', data: overall.ibid, backgroundColor: '#d98a3d', borderRadius: 3 }
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 16 } } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: '#2c383e' }, stacked: false },
+      x: { grid: { display: false } }
+    }
+  }
+});
+ 
+// Buyer table
+const buyers = [
+  { name: 'Matiano', portal: 15, total: 28 },
+  { name: 'Tamara', portal: 58, total: 183 },
+  { name: 'Vanessa', portal: 13, total: 41 },
+  { name: 'Amanda', portal: 24, total: 133 },
+  { name: 'Miguel', portal: 0, total: 12 },
+  { name: 'Maike', portal: 0, total: 2 },
+];
+const meta = monthlyGoals[currentMonth]; // mesma meta usada na tabela do setor, pro mês corrente
+document.getElementById('buyerMetaLabel').textContent = `${meta}% dos pedidos via portal (${currentMonth})`;
+function statusFor(pct){
+  if (pct >= meta) return { color: 'var(--verde)', label: 'Na meta' };
+  if (pct >= meta * 0.5) return { color: 'var(--amarelo)', label: 'Abaixo da meta' };
+  return { color: 'var(--vermelho)', label: 'Crítico' };
+}
+const tbody = document.getElementById('buyerTableBody');
+buyers.sort((a,b) => (b.portal/b.total) - (a.portal/a.total));
+buyers.forEach(b => {
+  const pct = b.total ? (b.portal / b.total * 100) : 0;
+  const st = statusFor(pct);
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="name">${b.name}</td>
+    <td>${b.portal} / ${b.total}</td>
+    <td>
+      <div class="bar-cell">
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.min(pct,100)}%; background:${st.color}"></div></div>
+        <span class="mono" style="min-width:48px; text-align:right;">${pct.toFixed(1)}%</span>
+      </div>
+    </td>
+    <td><span class="status-badge" style="background:${st.color}22; color:${st.color}"><span class="dot" style="background:${st.color}"></span>${st.label}</span></td>
+  `;
+  tbody.appendChild(tr);
+});
+ 
+// Monthly performance by buyer (Junho x Julho) — real month-over-month comparison
+const monthlyBuyers = [
+  { name: 'Amanda',  junTotal: 91,  junIbid: 20, julTotal: 288, julIbid: 48 },
+  { name: 'Matiano', junTotal: 30,  junIbid: 8,  julTotal: 62,  julIbid: 16 },
+  { name: 'Tamara',  junTotal: 112, junIbid: 7,  julTotal: 317, julIbid: 60 },
+  { name: 'Vanessa', junTotal: 20,  junIbid: 2,  julTotal: 63,  julIbid: 14 },
+  { name: 'Gisele',  junTotal: 62,  junIbid: 13, julTotal: 0,   julIbid: 0  },
+  { name: 'Maike',   junTotal: 0,   junIbid: 0,  julTotal: 2,   julIbid: 0  },
+  { name: 'Miguel',  junTotal: 0,   junIbid: 0,  julTotal: 12,  julIbid: 0  },
+];
+ 
+new Chart(document.getElementById('monthlyBuyerChart'), {
+  type: 'bar',
+  data: {
+    labels: monthlyBuyers.map(b => b.name),
+    datasets: [
+      {
+        label: 'Junho',
+        data: monthlyBuyers.map(b => b.junTotal ? +(b.junIbid / b.junTotal * 100).toFixed(1) : null),
+        backgroundColor: '#5b6a70',
+        borderRadius: 3
+      },
+      {
+        label: 'Julho',
+        data: monthlyBuyers.map(b => b.julTotal ? +(b.julIbid / b.julTotal * 100).toFixed(1) : null),
+        backgroundColor: '#d98a3d',
+        borderRadius: 3
+      }
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 16 } } },
+    scales: {
+      y: { beginAtZero: true, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+ 
+const compareBody = document.getElementById('monthlyCompareBody');
+monthlyBuyers.forEach(b => {
+  const junPct = b.junTotal ? (b.junIbid / b.junTotal * 100) : null;
+  const julPct = b.julTotal ? (b.julIbid / b.julTotal * 100) : null;
+  let deltaHtml;
+  if (junPct === null || julPct === null) {
+    deltaHtml = `<span class="mono" style="color:var(--text-dim);">—</span>`;
+  } else {
+    const delta = julPct - junPct;
+    const color = delta > 0 ? 'var(--verde)' : (delta < 0 ? 'var(--vermelho)' : 'var(--text-dim)');
+    const arrow = delta > 0 ? '▲' : (delta < 0 ? '▼' : '—');
+    deltaHtml = `<span class="mono" style="color:${color}; font-weight:600;">${arrow} ${Math.abs(delta).toFixed(1)} p.p.</span>`;
+  }
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="name">${b.name}</td>
+    <td class="mono">${junPct !== null ? junPct.toFixed(1) + '%' : '—'}</td>
+    <td class="mono">${julPct !== null ? julPct.toFixed(1) + '%' : '—'}</td>
+    <td>${deltaHtml}</td>
+  `;
+  compareBody.appendChild(tr);
+});
+ 
+// Status breakdown chart (as % of portal orders per period)
+const statusData = {
+  'Jun': { 'Em alteração':4,'Em configuração':1,'Pedido cancelado':6,'Pedido emitido':5,'Pendente sinc. ERP':1,'Recebido parcial':2,'Recebido total':31 },
+  'Jul 1ª q':{ 'Em aprovação do fornecedor':2,'Em configuração':1,'Pedido cancelado':1,'Pedido emitido':9,'Pendente sinc. ERP':1,'Recebido total':14 },
+  'Jul 2ª q':{ 'Em alteração':5,'Em aprovação':29,'Em aprovação do fornecedor':15,'Pedido cancelado':2,'Pedido emitido':40,'Pendente sinc. ERP':6,'Recebido parcial':2,'Recebido total':11 }
+};
+const allStatuses = ['Pedido emitido','Recebido total','Recebido parcial','Em aprovação','Em aprovação do fornecedor','Em alteração','Pendente sinc. ERP','Em configuração','Pedido cancelado'];
+const statusColors = {
+  'Pedido emitido':'#3ba39b','Recebido total':'#4a9d6f','Recebido parcial':'#7fb88f',
+  'Em aprovação':'#d9a63d','Em aprovação do fornecedor':'#e0b869','Em alteração':'#8fa1a7',
+  'Pendente sinc. ERP':'#c85d4d','Em configuração':'#5b6a70','Pedido cancelado':'#3d4649'
+};
+const labels = Object.keys(statusData);
+const datasets = allStatuses.map(st => {
+  return {
+    label: st,
+    data: labels.map(p => {
+      const rec = statusData[p];
+      const tot = Object.values(rec).reduce((a,b)=>a+b,0);
+      return rec[st] ? +(rec[st]/tot*100).toFixed(1) : 0;
+    }),
+    backgroundColor: statusColors[st]
+  };
+});
+new Chart(document.getElementById('statusChart'), {
+  type: 'bar',
+  data: { labels, datasets },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 9, padding: 10, font:{size:10.5} } } },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } }
+    }
+  }
+});
+</script>
+ 
+</body>
+</html>
+ 
