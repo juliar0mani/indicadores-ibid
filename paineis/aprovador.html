@@ -21,23 +21,35 @@
   h1{ font-size:26px; font-weight:600; letter-spacing:-0.01em; }
   .period-tag{ font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-dim); text-align:right; }
   .period-tag strong{color:var(--text); display:block; font-size:15px; margin-bottom:2px;}
-
+ 
   .kpi-row{ display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:20px; }
+  .kpi-row.n3{grid-template-columns:repeat(3,1fr);}
   .kpi{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; position:relative; overflow:hidden; }
   .kpi::before{ content:""; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--accent); }
   .kpi-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:8px; }
   .kpi-value{ font-family:'IBM Plex Mono', monospace; font-size:26px; font-weight:600; line-height:1.1; }
   .kpi-sub{ margin-top:8px; font-size:11.5px; color:var(--text-dim); }
-
+ 
   .leitura{
     background:var(--panel-2); border:1px solid var(--line); border-left:3px solid var(--accent-2);
     border-radius:6px; padding:16px 20px; margin-bottom:28px; font-size:13px; line-height:1.65; color:var(--text);
   }
-  .leitura b{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-2); display:block; margin-bottom:8px; }
-
-  .section-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-2); margin:32px 0 12px; }
+  .leitura-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-2); display:block; margin-bottom:8px; }
+  .leitura b{ color:var(--text); font-weight:600; }
+ 
+  .def-box{
+    background:var(--panel-2); border:1px solid var(--line); border-radius:6px;
+    padding:14px 20px; margin-bottom:20px; font-size:12.5px; line-height:1.6; color:var(--text-dim);
+    display:flex; gap:24px; flex-wrap:wrap;
+  }
+  .def-box .def-item{flex:1; min-width:240px;}
+  .def-box .def-item b{color:var(--text); font-family:'IBM Plex Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:4px;}
+ 
+  .section-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-2); margin:32px 0 12px; display:flex; align-items:center; gap:10px; }
   .section-label:first-of-type{ margin-top:0; }
-
+  .section-label::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .section-num{ background:var(--accent-2); color:#0d1416; border-radius:3px; padding:1px 6px; font-weight:700; }
+ 
   .grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:16px; margin-bottom:16px; }
   .grid.two{ grid-template-columns:1fr 1fr; }
   .panel{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px 22px; }
@@ -47,7 +59,7 @@
   .panel-desc{ font-size:12px; color:var(--text-dim); margin-bottom:16px; }
   .full{grid-column:1 / -1;}
   .table-scroll{ overflow-x:auto; }
-
+ 
   table{width:100%; border-collapse:collapse; font-size:12px;}
   th{ text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500; padding:7px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
   td{ padding:7px 8px; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono', monospace; white-space:nowrap; }
@@ -56,10 +68,18 @@
   tr:last-child td{border-bottom:none;}
   tr.low-n td{ opacity:0.55; }
   .n-tag{ font-family:'IBM Plex Sans', sans-serif; font-size:9.5px; color:var(--text-dim); border:1px solid var(--line); border-radius:8px; padding:1px 6px; margin-left:6px; }
+  .n-tag.warn{ color:var(--amarelo); border-color:var(--amarelo); }
   .bar-cell{display:flex; align-items:center; gap:8px;}
   .bar-track{ flex:1; height:6px; background:#2a3438; border-radius:3px; overflow:hidden; min-width:44px; }
   .bar-fill{height:100%; border-radius:3px;}
-
+  .col-sep{ border-left:1px solid var(--line); }
+  .trend{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:11.5px; }
+  .trend.up{ color:var(--vermelho); }
+  .trend.down{ color:var(--verde); }
+  .trend.flat{ color:var(--text-dim); }
+  td.val-melhora{ color:var(--verde); font-weight:600; }
+  td.val-piora{ color:var(--vermelho); font-weight:600; }
+ 
   .attention-list{ display:flex; flex-direction:column; gap:10px; }
   .attention-item{ display:flex; gap:12px; align-items:flex-start; padding:12px 14px; background:var(--panel-2); border-radius:5px; border-left:3px solid var(--vermelho); }
   .attention-item.warn{border-left-color:var(--amarelo);}
@@ -68,20 +88,31 @@
   .attention-item .txt{font-size:13px; line-height:1.5; color:var(--text);}
   .attention-item .txt b{color:var(--text);}
   .attention-item .txt span{color:var(--text-dim);}
-
+ 
   .reco-list{ display:flex; flex-direction:column; gap:10px; }
   .reco-item{ display:flex; gap:12px; padding:12px 14px; background:var(--panel-2); border-radius:5px; }
   .reco-num{ font-family:'IBM Plex Mono', monospace; font-weight:700; color:var(--accent); flex-shrink:0; }
   .reco-item .txt{font-size:13px; line-height:1.5;}
   .reco-item .txt b{color:var(--text);}
   .reco-item .txt span{color:var(--text-dim);}
-
+ 
+  .highlight-list{ display:flex; flex-direction:column; gap:8px; }
+  .highlight-item{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 14px; background:var(--panel-2); border-radius:5px; border-left:3px solid var(--verde); }
+  .highlight-item.piora{ border-left-color:var(--vermelho); }
+  .highlight-item .who{ font-size:12.5px; font-weight:500; }
+  .highlight-item .who span{ display:block; font-size:11px; color:var(--text-dim); font-weight:400; margin-top:2px; }
+  .highlight-item .delta{ font-family:'IBM Plex Mono', monospace; font-weight:700; font-size:14px; white-space:nowrap; }
+  .highlight-item.melhora .delta{ color:var(--verde); }
+  .highlight-item.piora .delta{ color:var(--vermelho); }
+ 
   canvas{max-height:300px;}
   footer{ margin-top:28px; font-size:11px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace; border-top:1px solid var(--line); padding-top:14px; line-height:1.6; }
-
+ 
   @media (max-width:960px){
     .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .kpi-row.n3{grid-template-columns:repeat(2,1fr);}
     .grid, .grid.two{grid-template-columns:1fr;}
+    .def-box{flex-direction:column; gap:12px;}
   }
   .back-link{
     display:inline-flex;
@@ -97,7 +128,7 @@
 </style>
 </head>
 <body>
-
+ 
 <a class="back-link mono" href="../index.html">&larr; voltar ao menu</a>
 <header>
   <div>
@@ -105,44 +136,77 @@
     <h1>Painel Aprovações</h1>
   </div>
   <div class="period-tag">
-    <strong>Base até 03/08/2026</strong>
-    Tempos corridos por evento único · níveis 1, 2 e 3
+    <strong>Base até 24/08/2026</strong>
+    Jun–ago/2026 · tempos corridos por evento único · níveis 1, 2 e 3
   </div>
 </header>
-
+ 
 <div class="kpi-row">
   <div class="kpi">
-    <div class="kpi-label">Cotações Únicas</div>
-    <div class="kpi-value mono">115</div>
+    <div class="kpi-label">Eventos Únicos</div>
+    <div class="kpi-value mono">332</div>
     <div class="kpi-sub">aprovações consolidadas, todos os níveis</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Tempo médio</div>
-    <div class="kpi-value mono">54,5h</div>
-    <div class="kpi-sub">~2,3 dias corridos</div>
+    <div class="kpi-value mono">48,0h</div>
+    <div class="kpi-sub">~2,0 dias corridos</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Mediana</div>
-    <div class="kpi-value mono">50,8h</div>
+    <div class="kpi-value mono">27,2h</div>
     <div class="kpi-sub">metade das aprovações abaixo disso</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Aprovadas em até 24h</div>
-    <div class="kpi-value mono" style="color:var(--amarelo)">32,2%</div>
-    <div class="kpi-sub">37 de 115 eventos</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">44,3%</div>
+    <div class="kpi-sub">147 de 332 eventos</div>
   </div>
 </div>
-
+ 
 <div class="leitura">
-  <b>Leitura executiva</b>
-  Foram consolidados 115 eventos únicos de aprovação. O tempo médio foi de 55 horas e a mediana de 51 horas; 32% das aprovações ocorreram em até 24 horas. O ranking evita duplicidade de pedidos com vários itens e considera todos os níveis. Tempos são corridos, incluindo noites e fins de semana — por isso pedidos enviados perto de um fim de semana tendem a puxar a média para cima.
+  <span class="leitura-label">Leitura executiva</span>
+  Foram consolidados 332 eventos únicos de aprovação entre 17/06 e 24/08/2026. O tempo médio foi de 48 horas e a mediana de 27 horas; 44% das aprovações ocorreram em até 24 horas. Olhando por mês, agosto reverte a piora de julho — a média cai de volta para perto do nível de junho — mas o volume mensal continua subindo (40 → 118 → 174 eventos), então o sistema está processando mais pedidos e em menos tempo por pedido. Tempos são corridos, incluindo noites e fins de semana.
 </div>
-
-<div class="section-label">Desempenho por nível de aprovação</div>
+ 
+<div class="def-box">
+  <div class="def-item">
+    <b>O que é um "evento"</b>
+    Cada aprovação individual dada por uma pessoa em um nível específico (1, 2 ou 3) de um pedido. Um mesmo pedido pode gerar mais de um evento se passar por mais de um nível de aprovação.
+  </div>
+  <div class="def-item">
+    <b>O que é um "processo"</b>
+    O ciclo completo de um pedido: do envio inicial para aprovação até a última aprovação recebida, somando o tempo de todos os níveis pelos quais ele passou. Um processo pode conter 1, 2 ou 3 eventos.
+  </div>
+</div>
+ 
+<div class="section-label"><span class="section-num">1</span>Evolução mensal — visão geral</div>
+<div class="grid">
+  <div class="panel">
+    <div class="panel-title">Tempo médio por mês — eventos vs. processos</div>
+    <div class="panel-desc">Comparação pelo mês do último envio para aprovação · agosto é parcial (até 24/08)</div>
+    <canvas id="monthlyChart"></canvas>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Comparativo mês a mês</div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Mês</th><th>Eventos</th><th>Média (h)</th><th>≤24h</th><th class="col-sep">Processos</th><th>Média (h)</th><th>≤24h</th></tr></thead>
+        <tbody id="monthlyTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="leitura" style="margin-bottom:28px;">
+  <span class="leitura-label">Leitura da tendência</span>
+  Junho teve volume baixo (40 eventos) e tempo médio de 40h. Julho piorou bastante — 118 eventos e média de 63h (+56% vs. junho) — provavelmente reflexo do aumento de volume enquanto o processo ainda estava sendo rodado. Agosto (parcial, até 24/08) já mostra recuperação: 174 eventos com média de 40h (-37% vs. julho), o melhor patamar dos três meses mesmo com o maior volume.
+</div>
+ 
+<div class="section-label"><span class="section-num">2</span>Desempenho por nível de aprovação</div>
 <div class="grid">
   <div class="panel">
     <div class="panel-title">Tempo médio e mediana por nível</div>
-    <div class="panel-desc">Nível 3 tem só 1 evento — pouco representativo</div>
+    <div class="panel-desc">Nível 3 tem poucos eventos — pouco representativo</div>
     <canvas id="levelChart"></canvas>
   </div>
   <div class="panel">
@@ -155,59 +219,81 @@
     </div>
   </div>
 </div>
-
-<div class="section-label">Ranking completo de aprovadores — do maior para o menor tempo médio</div>
+ 
+<div class="section-label"><span class="section-num">3</span>Evolução por aprovador — julho → agosto</div>
+<div class="leitura">
+  <span class="leitura-label">Leitura executiva</span>
+  Entre os aprovadores com atividade em julho e agosto (e média de julho acima de zero), a maior melhora foi de <b>Jonathan Langone da Silva</b>: de 71,3h para 2,2h (-97%). A maior piora foi de <b>Marcelo Gerhardt</b>: de 9,5h para 29,4h (+209%). Aprovadores com média zerada ficam de fora desse ranking percentual.
+</div>
+<div class="grid two">
+  <div class="panel">
+    <div class="panel-title good">Maiores melhoras (jul → ago)</div>
+    <div class="highlight-list" id="melhoraList"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title crit">Maiores pioras (jul → ago)</div>
+    <div class="highlight-list" id="pioraList"></div>
+  </div>
+</div>
+ 
+<div class="section-label"><span class="section-num">4</span>Detalhamento mensal por aprovador</div>
 <div class="grid" style="grid-template-columns:1fr;">
   <div class="panel">
-    <div class="panel-title">21 aprovadores</div>
-    <div class="panel-desc">Linhas esmaecidas = menos de 5 eventos (tempo real, mas amostra baixa pra tirar conclusão de padrão)</div>
+    <div class="panel-title">34 aprovadores — jun / jul / ago lado a lado</div>
+    <div class="panel-desc">Ordenado pelo tempo médio geral (maior → menor) · valores em <span style="color:var(--verde)">verde</span> = queda vs. mês anterior · valores em <span style="color:var(--vermelho)">vermelho</span> = alta vs. mês anterior</div>
     <div class="table-scroll">
       <table>
         <thead>
-          <tr><th>Pos.</th><th>Aprovador(a)</th><th>Eventos</th><th>Média (h)</th><th>Média (dias)</th><th>Mediana (h)</th><th>≤24h</th><th>&gt;48h</th><th>Máximo (h)</th></tr>
+          <tr>
+            <th>Aprovador(a)</th>
+            <th>Jun ev.</th><th>Jun média</th>
+            <th class="col-sep">Jul ev.</th><th>Jul média</th>
+            <th class="col-sep">Ago ev.</th><th>Ago média</th>
+            <th class="col-sep">Geral ev.</th><th>Geral média</th>
+          </tr>
         </thead>
-        <tbody id="rankingTableBody"></tbody>
+        <tbody id="pivotTableBody"></tbody>
       </table>
     </div>
   </div>
 </div>
-
+ 
 <div class="grid two">
   <div class="panel">
     <div class="panel-title crit">Gargalos reais (5+ eventos, acima da média geral)</div>
     <table>
-      <thead><tr><th>Aprovador(a)</th><th>Eventos</th><th>Média</th><th>≤24h</th></tr></thead>
+      <thead><tr><th>Aprovador(a)</th><th>Eventos</th><th>Média</th></tr></thead>
       <tbody id="bottleneckTableBody"></tbody>
     </table>
   </div>
   <div class="panel">
     <div class="panel-title good">Referência de boa prática (5+ eventos, mais rápidos)</div>
     <table>
-      <thead><tr><th>Aprovador(a)</th><th>Eventos</th><th>Média</th><th>≤24h</th></tr></thead>
+      <thead><tr><th>Aprovador(a)</th><th>Eventos</th><th>Média</th></tr></thead>
       <tbody id="fastTableBody"></tbody>
     </table>
   </div>
 </div>
-
-<div class="section-label">Duração dos processos</div>
-<div class="kpi-row" style="grid-template-columns:repeat(3,1fr); margin-bottom:20px;">
+ 
+<div class="section-label"><span class="section-num">5</span>Duração dos processos</div>
+<div class="kpi-row n3" style="margin-bottom:20px;">
   <div class="kpi">
     <div class="kpi-label">Processos analisados</div>
-    <div class="kpi-value mono">101</div>
+    <div class="kpi-value mono">282</div>
     <div class="kpi-sub">envio até última aprovação</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Tempo médio do processo</div>
-    <div class="kpi-value mono">2,6 dias</div>
-    <div class="kpi-sub">mediana: 2,2 dias</div>
+    <div class="kpi-value mono">2,4 dias</div>
+    <div class="kpi-sub">mediana: 1,9 dias</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Concluídos em até 24h</div>
-    <div class="kpi-value mono" style="color:var(--amarelo)">25,7%</div>
-    <div class="kpi-sub">26 de 101 processos</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">38,7%</div>
+    <div class="kpi-sub">109 de 282 processos</div>
   </div>
 </div>
-
+ 
 <div class="grid">
   <div class="panel">
     <div class="panel-title">Distribuição por faixa de tempo total</div>
@@ -217,63 +303,101 @@
     <div class="panel-title">Top 10 processos mais demorados</div>
     <div class="table-scroll">
       <table>
-        <thead><tr><th>Pedido</th><th>Dias</th><th>Último aprovador</th></tr></thead>
+        <thead><tr><th>Pedido</th><th>Dias</th><th>Níveis</th><th>Último aprovador</th></tr></thead>
         <tbody id="slowTableBody"></tbody>
       </table>
     </div>
   </div>
 </div>
-
+ 
+<div class="section-label"><span class="section-num">6</span>Pontos de atenção e recomendações</div>
 <div class="grid two">
   <div class="panel">
     <div class="panel-title">Pontos de atenção</div>
     <div class="attention-list">
       <div class="attention-item">
-        <div class="txt"><b>Fabiano Piccoli</b> é o gargalo mais consistente — <span>110,5h de média em 8 eventos, o maior tempo entre quem tem volume relevante</span></div>
-      </div>
-      <div class="attention-item warn">
-        <div class="txt"><b>Eduardo Bonatto</b> e <b>Luana Gonçalves</b> têm o maior volume (14 e 11 eventos) e tempo acima da mediana geral — <span>68,9h e 61,2h respectivamente</span></div>
+        <div class="txt"><b>Volume subiu forte</b> em julho e agosto (118 e 174 eventos vs. 40 em junho) — <span>é o principal motivo de julho ter piorado; agosto mostra que dá para escalar volume sem piorar o tempo médio</span></div>
       </div>
       <div class="attention-item">
-        <div class="txt">Quase metade dos processos (49,5%) ficam na faixa de <b>2 a 5 dias</b> — <span>essa faixa concentra 155 dos 261 dias acumulados</span></div>
+        <div class="txt"><b>Luana Gonçalves, Fabiano Piccoli, Silvia Regina e Eduardo Bonatto</b> concentram o maior volume entre os gargalos reais (29, 18, 29 e 40 eventos) — <span>juntos são 116 dos 332 eventos, então qualquer ganho de tempo neles tem efeito grande na média geral</span></div>
+      </div>
+      <div class="attention-item">
+        <div class="txt"><b>Marcelo Gerhardt e Janice Martinotto</b> pioraram forte de julho para agosto (+209% e +103%) — <span>vale entender se foi pontual (poucos pedidos, mais sensível a outliers) ou início de uma tendência</span></div>
       </div>
       <div class="attention-item info">
-        <div class="txt">7 dos 21 aprovadores no ranking têm 1 ou 2 eventos — <span>tempo real, mas não representa um padrão de comportamento ainda</span></div>
+        <div class="txt">1 processo (#133) passou por <b>3 níveis de aprovação e levou 13,1 dias</b> — <span>o único caso com 3 níveis no período, vale conferir se era necessário</span></div>
+      </div>
+      <div class="attention-item info">
+        <div class="txt"><b>Próxima base vai trazer relatório de pedidos em aberto</b> — <span>hoje o painel só olha para trás (pedidos já concluídos); com os pedidos em aberto dá para acompanhar aging em tempo real, antes do fechamento do mês</span></div>
+      </div>
+      <div class="attention-item info">
+        <div class="txt"><b>Sazonalidade por dia da semana ainda não foi analisada</b> — <span>como os tempos são corridos (incluem fins de semana), pedidos enviados perto de sexta/sábado podem puxar a média para cima sem que seja demora do aprovador — a investigar na próxima base</span></div>
+      </div>
+      <div class="attention-item info">
+        <div class="txt"><b>Nível 2 e 3 hoje mostram o tempo total desde o envio do pedido</b>, não o tempo isolado de cada etapa — <span>o ideal é medir separadamente quanto tempo levou do fim do Nível 1 até a aprovação do Nível 2 (e do Nível 2 ao Nível 3), para saber quanto cada alçada realmente demora por si só</span></div>
       </div>
     </div>
   </div>
   <div class="panel">
     <div class="panel-title">Recomendações</div>
     <div class="reco-list">
-      <div class="reco-item"><span class="reco-num">1</span><div class="txt">Conversar primeiro com <b>Fabiano Piccoli, Eduardo Bonatto e Luana Gonçalves</b> — <span>juntos concentram 33 dos 115 eventos e os maiores tempos médios com volume relevante</span></div></div>
-      <div class="reco-item"><span class="reco-num">2</span><div class="txt">Usar <b>Janice Martinotto</b> (10 eventos, 29,2h, 70% em até 24h) como referência de boa prática — <span>vale entender o que ela faz diferente</span></div></div>
-      <div class="reco-item"><span class="reco-num">3</span><div class="txt">Investigar os <b>13 processos acima de 5 dias</b> individualmente — <span>concentram 76,5 dias acumulados, desproporcional ao volume</span></div></div>
-      <div class="reco-item"><span class="reco-num">4</span><div class="txt">Reavaliar o Nível 2 — <span>tempo médio 71,7h é o maior entre os níveis com volume representativo</span></div></div>
-      <div class="reco-item"><span class="reco-num">5</span><div class="txt">Configurar um alerta automático para pedidos parados <b>há mais de 48h sem aprovação</b> — <span>55% dos eventos de Nível 1 já passam desse tempo</span></div></div>
+      <div class="reco-item"><span class="reco-num">1</span><div class="txt">Conversar com <b>Luana Gonçalves, Fabiano Piccoli e Silvia Regina</b> — <span>maior volume entre os gargalos reais, então qualquer melhora ali puxa a média geral para baixo</span></div></div>
+      <div class="reco-item"><span class="reco-num">2</span><div class="txt">Usar <b>Jonathan Langone da Silva e Fabiano Piccoli</b> (maiores quedas de tempo jul→ago) como referência — <span>vale entender o que mudou na rotina deles entre os dois meses</span></div></div>
+      <div class="reco-item"><span class="reco-num">3</span><div class="txt">Acompanhar <b>Marcelo Gerhardt e Janice Martinotto</b> no fechamento de agosto — <span>a piora pode ser pontual (poucos pedidos) ou o início de um padrão</span></div></div>
+      <div class="reco-item"><span class="reco-num">4</span><div class="txt">Configurar um alerta automático para pedidos parados <b>há mais de 48h sem aprovação</b> — <span>41% dos eventos de Nível 1 já passam desse tempo</span></div></div>
     </div>
   </div>
 </div>
-
+ 
 <footer>
-  Fonte: indicador_aprovador.xlsx (abas Indicadores, Processos, Eventos Aprovação, Ciclos Aprovação) · Estrutura e números seguem exatamente o que a planilha já calculou — conferidos de forma independente a partir dos eventos brutos. Tempos são corridos (incluem noites e fins de semana).
+  Fonte: indicador_aprovador.xlsx (abas Indicadores, Processos, Evolução Mensal, Evolução Aprovadores) · Base: Base Compras Novo · Estrutura e números seguem exatamente o que a planilha já calculou. Tempos são corridos (incluem noites e fins de semana). Agosto é parcial até 24/08/2026.
 </footer>
-
+ 
 <script>
 Chart.defaults.color = '#8fa1a7';
 Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
 Chart.defaults.font.size = 11;
-
-function pct(v){ return (v*100).toFixed(1) + '%'; }
-function h(v){ return v.toFixed(1) + 'h'; }
-function d(v){ return v.toFixed(1); }
-
+ 
+function pct(v){ return v==null ? '—' : (v*100).toFixed(1) + '%'; }
+function h(v){ return v==null ? '—' : v.toFixed(1) + 'h'; }
+function d(v){ return v==null ? '—' : v.toFixed(1); }
+ 
+// ---- Evolução mensal (geral) ----
+const monthly = [
+  { mes:'Jun/26', eventos:40, media:40.3, mediana:21.6, ate24:0.525, processos:39, mediaProc:44.6, medianaProc:26.1, ate24Proc:0.487 },
+  { mes:'Jul/26', eventos:118, media:62.8, mediana:51.2, ate24:0.347, processos:98, mediaProc:75.7, medianaProc:63.6, ate24Proc:0.276 },
+  { mes:'Ago/26*', eventos:174, media:39.8, mediana:24.1, ate24:0.489, processos:145, mediaProc:46.9, medianaProc:27.2, ate24Proc:0.434 },
+];
+ 
+new Chart(document.getElementById('monthlyChart'), {
+  type: 'bar',
+  data: {
+    labels: monthly.map(m => m.mes),
+    datasets: [
+      { label: 'Média eventos (h)', data: monthly.map(m => m.media), backgroundColor: '#d98a3d', borderRadius: 3 },
+      { label: 'Média processos (h)', data: monthly.map(m => m.mediaProc), backgroundColor: '#3ba39b', borderRadius: 3 }
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+    scales: { y: { beginAtZero: true, ticks: { callback: v => v + 'h' }, grid: { color: '#2c383e' } }, x: { grid: { display: false } } }
+  }
+});
+ 
+const monthlyBody = document.getElementById('monthlyTableBody');
+monthly.forEach(m => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="name">${m.mes}</td><td>${m.eventos}</td><td>${h(m.media)}</td><td>${pct(m.ate24)}</td><td class="col-sep">${m.processos}</td><td>${h(m.mediaProc)}</td><td>${pct(m.ate24Proc)}</td>`;
+  monthlyBody.appendChild(tr);
+});
+ 
 // ---- Nível ----
 const levels = [
-  { nivel: 'Nível 1', eventos: 101, media: 52.64, dias: 2.19, mediana: 50.25, ate24: 0.3168, mais48: 0.5545, max: 147.92 },
-  { nivel: 'Nível 2', eventos: 13,  media: 71.67, dias: 2.99, mediana: 71.88, ate24: 0.3077, mais48: 0.6154, max: 172.40 },
-  { nivel: 'Nível 3', eventos: 1,   media: 22.03, dias: 0.92, mediana: 22.03, ate24: 1.0,    mais48: 0.0,    max: 22.03 },
+  { nivel: 'Nível 1', eventos: 282, media: 47.8, dias: 1.99, mediana: 27.2, ate24: 0.4539, mais48: 0.4078, max: 291.9 },
+  { nivel: 'Nível 2', eventos: 45,  media: 50.7, dias: 2.11, mediana: 27.2, ate24: 0.3556, mais48: 0.3778, max: 172.4 },
+  { nivel: 'Nível 3', eventos: 5,   media: 36.5, dias: 1.52, mediana: 22.0, ate24: 0.6,    mais48: 0.4,    max: 69.3 },
 ];
-
+ 
 new Chart(document.getElementById('levelChart'), {
   type: 'bar',
   data: {
@@ -288,113 +412,165 @@ new Chart(document.getElementById('levelChart'), {
     scales: { y: { beginAtZero: true, ticks: { callback: v => v + 'h' }, grid: { color: '#2c383e' } }, x: { grid: { display: false } } }
   }
 });
-
+ 
 const levelTbody = document.getElementById('levelTableBody');
 levels.forEach(l => {
   const tr = document.createElement('tr');
   tr.innerHTML = `<td class="name">${l.nivel}</td><td>${l.eventos}</td><td>${h(l.media)}</td><td>${d(l.dias)}</td><td>${h(l.mediana)}</td><td>${pct(l.ate24)}</td><td>${pct(l.mais48)}</td><td>${h(l.max)}</td>`;
   levelTbody.appendChild(tr);
 });
-
-// ---- Full ranking (21 approvers, matching the Excel "Indicadores" sheet) ----
-const ranking = [
-  { pos:1,  nome:'Glaucia Bueno - SCM - Marketing', ev:1, media:131.73, dias:5.49, mediana:131.73, ate24:0, mais48:1, max:131.73 },
-  { pos:2,  nome:'Larissa Amaral - CPG - Faturamento', ev:2, media:120.97, dias:5.04, mediana:120.97, ate24:0, mais48:1, max:121.22 },
-  { pos:3,  nome:'Fabiano Piccoli - SCM - Cord. Vendas', ev:8, media:110.53, dias:4.61, mediana:127.62, ate24:0.125, mais48:0.875, max:172.40 },
-  { pos:4,  nome:'Margarete Herpich - SFF - Compras', ev:2, media:96.43, dias:4.02, mediana:96.43, ate24:0, mais48:1, max:96.43 },
-  { pos:5,  nome:'Jonathan Langone da Silva - LOGISTICA INTERNA', ev:1, media:71.32, dias:2.97, mediana:71.32, ate24:0, mais48:1, max:71.32 },
-  { pos:6,  nome:'Eduardo Bonatto Duarte', ev:14, media:68.89, dias:2.87, mediana:75.50, ate24:0.2857, mais48:0.6429, max:147.92 },
-  { pos:7,  nome:'Marcio Korzeniewski - SUT - Diretor', ev:3, media:64.77, dias:2.70, mediana:71.88, ate24:0.3333, mais48:0.6667, max:100.38 },
-  { pos:8,  nome:'Cristina Ciotta Andrade', ev:3, media:62.05, dias:2.59, mediana:56.85, ate24:0.3333, mais48:0.6667, max:123.15 },
-  { pos:9,  nome:'Luana Goncalves dos Santos - SME - Compras', ev:11, media:61.17, dias:2.55, mediana:51.52, ate24:0.0909, mais48:0.8182, max:105.92 },
-  { pos:10, nome:'Silvia Regina Kilder Gobbi - CE - RH Estratégico', ev:8, media:59.53, dias:2.48, mediana:50.55, ate24:0.25, mais48:0.625, max:119.00 },
-  { pos:11, nome:'Jucilaine Grandi - SFF - Laboratorio Galvanica', ev:9, media:51.82, dias:2.16, mediana:50.25, ate24:0, mais48:0.8889, max:63.23 },
-  { pos:12, nome:'Filipe Castilho de Souza', ev:13, media:47.52, dias:1.98, mediana:48.85, ate24:0.1538, mais48:0.5385, max:94.30 },
-  { pos:13, nome:'Nicolas de Araujo - SUT - Marketing', ev:4, media:45.80, dias:1.91, mediana:39.49, ate24:0.25, mais48:0.25, max:98.10 },
-  { pos:14, nome:'Michel Liska', ev:6, media:41.31, dias:1.72, mediana:23.87, ate24:0.6667, mais48:0.3333, max:92.82 },
-  { pos:15, nome:'Marcelo Rambo Agnes - SUT - Coordenação', ev:9, media:32.03, dias:1.33, mediana:21.25, ate24:0.5556, mais48:0.3333, max:75.03 },
-  { pos:16, nome:'Janice Martinotto - SFF - Cord. Galvanica', ev:10, media:29.23, dias:1.22, mediana:20.00, ate24:0.7, mais48:0.3, max:72.52 },
-  { pos:17, nome:'william nunes', ev:3, media:26.51, dias:1.10, mediana:26.62, ate24:0, mais48:0, max:26.62 },
-  { pos:18, nome:'Mariana Zamboni - SME', ev:2, media:20.03, dias:0.83, mediana:20.03, ate24:1, mais48:0, max:21.85 },
-  { pos:19, nome:'Marcelo Gerhardt - SME - Vendas', ev:4, media:9.52, dias:0.40, mediana:10.58, ate24:1, mais48:0, max:15.08 },
-  { pos:20, nome:'Altemir Lazzaretti - TIPI', ev:1, media:0.58, dias:0.02, mediana:0.58, ate24:1, mais48:0, max:0.58 },
-  { pos:21, nome:'Daniel Scotti da Silva - SUT - Engenharia', ev:1, media:0.38, dias:0.02, mediana:0.38, ate24:1, mais48:0, max:0.38 },
+ 
+// ---- Destaques julho -> agosto ----
+const melhorias = [
+  { nome:'Jonathan Langone da Silva - LOGISTICA INTERNA', evJul:1, medJul:71.3, evAgo:2, medAgo:2.2, delta:-0.969 },
+  { nome:'Fabiano Piccoli - SCM - Cord. Vendas', evJul:9, medJul:128.7, evAgo:8, medAgo:24.1, delta:-0.813 },
+  { nome:'Eduardo Bonatto Duarte', evJul:17, medJul:85.1, evAgo:20, medAgo:19.0, delta:-0.777 },
+  { nome:'Cristiano Jacoby Muller', evJul:2, medJul:265.2, evAgo:2, medAgo:63.7, delta:-0.760 },
+  { nome:'Glaucia Bueno - SCM - Marketing', evJul:1, medJul:112.4, evAgo:3, medAgo:29.1, delta:-0.741 },
 ];
-
-const rankingBody = document.getElementById('rankingTableBody');
-ranking.forEach(r => {
-  const tr = document.createElement('tr');
-  if (r.ev < 5) tr.className = 'low-n';
-  tr.innerHTML = `
-    <td class="rank">${r.pos}</td>
-    <td class="name">${r.nome}${r.ev < 5 ? '<span class="n-tag">n baixo</span>' : ''}</td>
-    <td>${r.ev}</td>
-    <td>${h(r.media)}</td>
-    <td>${d(r.dias)}</td>
-    <td>${h(r.mediana)}</td>
-    <td>${pct(r.ate24)}</td>
-    <td>${pct(r.mais48)}</td>
-    <td>${h(r.max)}</td>
-  `;
-  rankingBody.appendChild(tr);
+const pioras = [
+  { nome:'Marcelo Gerhardt - SME - Vendas', evJul:4, medJul:9.5, evAgo:2, medAgo:29.4, delta:2.091 },
+  { nome:'Janice Martinotto - SFF - Cord. Galvanica', evJul:10, medJul:39.7, evAgo:8, medAgo:80.5, delta:1.027 },
+  { nome:'Marcelo Rambo Agnes - SUT - Coordenação', evJul:6, medJul:33.7, evAgo:12, medAgo:50.5, delta:0.501 },
+  { nome:'Luana Goncalves dos Santos - SME - Compras', evJul:9, medJul:62.3, evAgo:18, medAgo:79.5, delta:0.275 },
+  { nome:'Margarete Herpich - SFF - Compras', evJul:2, medJul:96.4, evAgo:1, medAgo:101.4, delta:0.051 },
+];
+ 
+const melhoraList = document.getElementById('melhoraList');
+melhorias.forEach(a => {
+  const div = document.createElement('div');
+  div.className = 'highlight-item melhora';
+  div.innerHTML = `<div class="who">${a.nome}<span>${a.evJul} ev. / ${h(a.medJul)} → ${a.evAgo} ev. / ${h(a.medAgo)}</span></div><div class="delta">${(a.delta*100).toFixed(0)}%</div>`;
+  melhoraList.appendChild(div);
 });
-
-// ---- Gargalos / referência (n >= 5) ----
-const reliable = ranking.filter(r => r.ev >= 5).sort((a,b) => b.media - a.media);
-const overallMean = 54.52;
-const bottleneckBody = document.getElementById('bottleneckTableBody');
-reliable.filter(r => r.media > overallMean).forEach(r => {
+const pioraList = document.getElementById('pioraList');
+pioras.forEach(a => {
+  const div = document.createElement('div');
+  div.className = 'highlight-item piora';
+  div.innerHTML = `<div class="who">${a.nome}<span>${a.evJul} ev. / ${h(a.medJul)} → ${a.evAgo} ev. / ${h(a.medAgo)}</span></div><div class="delta">+${(a.delta*100).toFixed(0)}%</div>`;
+  pioraList.appendChild(div);
+});
+ 
+// ---- Pivot mensal por aprovador (34, ordenado pela média geral) ----
+const pivot = [
+ {nome:"Julio Andre Becker - SME - Vendas", geral:{ev:2,media:239.9}, jun:{ev:0,media:null}, jul:{ev:2,media:239.9}, ago:{ev:0,media:null}},
+ {nome:"Cristiano Jacoby Muller", geral:{ev:4,media:164.4}, jun:{ev:0,media:null}, jul:{ev:2,media:265.2}, ago:{ev:2,media:63.7}},
+ {nome:"Anderson Pepato - CE - Financeiro", geral:{ev:1,media:162.6}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:162.6}},
+ {nome:"Alex Gusmao Antunes - CE - Head Novos Negócios", geral:{ev:3,media:134.5}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:3,media:134.5}},
+ {nome:"Larissa Amaral - CPG - Faturamento", geral:{ev:2,media:121.0}, jun:{ev:2,media:121.0}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
+ {nome:"Margarete Herpich - SFF - Compras", geral:{ev:3,media:98.1}, jun:{ev:0,media:null}, jul:{ev:2,media:96.4}, ago:{ev:1,media:101.4}},
+ {nome:"Luana Goncalves dos Santos - SME - Compras", geral:{ev:29,media:77.6}, jun:{ev:2,media:130.0}, jul:{ev:9,media:62.3}, ago:{ev:18,media:79.5}},
+ {nome:"Fabiano Piccoli - SCM - Cord. Vendas", geral:{ev:18,media:75.1}, jun:{ev:1,media:0.1}, jul:{ev:9,media:128.7}, ago:{ev:8,media:24.1}},
+ {nome:"Glaucia Bueno - SCM - Marketing", geral:{ev:5,media:66.3}, jun:{ev:1,media:131.7}, jul:{ev:1,media:112.4}, ago:{ev:3,media:29.1}},
+ {nome:"Cristiano Magioni - SUT - Vendas", geral:{ev:2,media:65.8}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:2,media:65.8}},
+ {nome:"Janice Martinotto - SFF - Cord. Galvanica", geral:{ev:20,media:58.2}, jun:{ev:2,media:61.4}, jul:{ev:10,media:39.7}, ago:{ev:8,media:80.5}},
+ {nome:"Silvia Regina Kilder Gobbi - CE - RH Estratégico", geral:{ev:29,media:55.5}, jun:{ev:3,media:49.7}, jul:{ev:5,media:65.4}, ago:{ev:21,media:54.0}},
+ {nome:"Eduardo Bonatto Duarte", geral:{ev:40,media:50.8}, jun:{ev:3,media:68.8}, jul:{ev:17,media:85.1}, ago:{ev:20,media:19.0}},
+ {nome:"Marcio Korzeniewski - SUT - Diretor", geral:{ev:7,media:50.7}, jun:{ev:0,media:null}, jul:{ev:3,media:64.8}, ago:{ev:4,media:40.1}},
+ {nome:"Jucilaine Grandi - SFF - Laboratorio Galvanica", geral:{ev:27,media:44.0}, jun:{ev:0,media:null}, jul:{ev:10,media:71.5}, ago:{ev:17,media:27.8}},
+ {nome:"Nicolas de Araujo - SUT - Marketing", geral:{ev:5,media:43.2}, jun:{ev:3,media:45.3}, jul:{ev:1,media:47.2}, ago:{ev:1,media:33.0}},
+ {nome:"Filipe Castilho de Souza", geral:{ev:28,media:41.6}, jun:{ev:1,media:26.1}, jul:{ev:14,media:42.5}, ago:{ev:13,media:41.8}},
+ {nome:"Marcelo Rambo Agnes - SUT - Coordenação", geral:{ev:23,media:40.5}, jun:{ev:5,media:24.4}, jul:{ev:6,media:33.7}, ago:{ev:12,media:50.5}},
+ {nome:"Cristina Ciotta Andrade", geral:{ev:8,media:38.2}, jun:{ev:1,media:123.2}, jul:{ev:2,media:31.5}, ago:{ev:5,media:23.8}},
+ {nome:"Michel Liska", geral:{ev:10,media:29.4}, jun:{ev:0,media:null}, jul:{ev:7,media:35.6}, ago:{ev:3,media:15.0}},
+ {nome:"william nunes", geral:{ev:3,media:26.5}, jun:{ev:2,media:26.6}, jul:{ev:1,media:26.3}, ago:{ev:0,media:null}},
+ {nome:"Jonathan Langone da Silva - LOGISTICA INTERNA", geral:{ev:3,media:25.2}, jun:{ev:0,media:null}, jul:{ev:1,media:71.3}, ago:{ev:2,media:2.2}},
+ {nome:"Pedro Gondin Bido", geral:{ev:2,media:22.1}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:2,media:22.1}},
+ {nome:"Ronaldo de Santana Sabino", geral:{ev:1,media:21.6}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:21.6}},
+ {nome:"Tiago Dalzochio - SME - Engenharia", geral:{ev:1,media:21.4}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:21.4}},
+ {nome:"Marcelo Gerhardt - SME - Vendas", geral:{ev:6,media:16.2}, jun:{ev:0,media:null}, jul:{ev:4,media:9.5}, ago:{ev:2,media:29.4}},
+ {nome:"Mariana Zamboni - SME", geral:{ev:3,media:13.4}, jun:{ev:3,media:13.4}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
+ {nome:"Altemir Lazzaretti - TIPI", geral:{ev:1,media:0.6}, jun:{ev:1,media:0.6}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
+ {nome:"Daniel Scotti da Silva - SUT - Engenharia", geral:{ev:1,media:0.4}, jun:{ev:1,media:0.4}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
+ {nome:"Matiano Milese Silveira", geral:{ev:18,media:0}, jun:{ev:4,media:0}, jul:{ev:6,media:0}, ago:{ev:8,media:0}},
+ {nome:"Gisele Medino Guerra - SFF - Manutencao", geral:{ev:1,media:0}, jun:{ev:1,media:0}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
+ {nome:"Tamara Venturin - SUT - Compras", geral:{ev:8,media:0}, jun:{ev:1,media:0}, jul:{ev:1,media:0}, ago:{ev:6,media:0}},
+ {nome:"Amanda Dal Sochio", geral:{ev:9,media:0}, jun:{ev:3,media:0}, jul:{ev:2,media:0}, ago:{ev:4,media:0}},
+ {nome:"Vanessa Jucoski - SFF - Compras", geral:{ev:9,media:0}, jun:{ev:0,media:null}, jul:{ev:3,media:0}, ago:{ev:6,media:0}},
+];
+ 
+// Retorna classe de cor comparando o mês atual com o mês anterior disponível (só quando ambos têm eventos)
+function trendClass(curr, prev){
+  if (curr.ev === 0 || curr.media === null) return '';
+  if (!prev || prev.ev === 0 || prev.media === null) return '';
+  if (curr.media < prev.media) return 'val-melhora';
+  if (curr.media > prev.media) return 'val-piora';
+  return '';
+}
+ 
+const pivotBody = document.getElementById('pivotTableBody');
+pivot.forEach(p => {
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td class="name">${r.nome.split(' - ')[0]}</td><td>${r.ev}</td><td>${h(r.media)}</td><td>${pct(r.ate24)}</td>`;
+  const julClass = trendClass(p.jul, p.jun);
+  const agoClass = trendClass(p.ago, p.jul);
+  tr.innerHTML = `
+    <td class="name">${p.nome}</td>
+    <td>${p.jun.ev || '—'}</td><td>${h(p.jun.media)}</td>
+    <td class="col-sep">${p.jul.ev || '—'}</td><td class="${julClass}">${h(p.jul.media)}</td>
+    <td class="col-sep">${p.ago.ev || '—'}</td><td class="${agoClass}">${h(p.ago.media)}</td>
+    <td class="col-sep">${p.geral.ev}</td><td>${h(p.geral.media)}</td>
+  `;
+  pivotBody.appendChild(tr);
+});
+ 
+// ---- Gargalos / referência (n >= 5) ----
+const overallMean = 48.0;
+const reliable = pivot.filter(p => p.geral.ev >= 5);
+ 
+const bottleneckBody = document.getElementById('bottleneckTableBody');
+reliable.filter(p => p.geral.media > overallMean).sort((a,b) => b.geral.media - a.geral.media).forEach(p => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="name">${p.nome.split(' - ')[0]}</td><td>${p.geral.ev}</td><td>${h(p.geral.media)}</td>`;
   bottleneckBody.appendChild(tr);
 });
 const fastBody = document.getElementById('fastTableBody');
-[...reliable].filter(r => r.media <= overallMean).sort((a,b)=>a.media-b.media).slice(0,5).forEach(r => {
+reliable.filter(p => p.geral.media <= overallMean && p.geral.media > 0).sort((a,b)=>a.geral.media-b.geral.media).slice(0,5).forEach(p => {
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td class="name">${r.nome.split(' - ')[0]}</td><td>${r.ev}</td><td>${h(r.media)}</td><td>${pct(r.ate24)}</td>`;
+  tr.innerHTML = `<td class="name">${p.nome.split(' - ')[0]}</td><td>${p.geral.ev}</td><td>${h(p.geral.media)}</td>`;
   fastBody.appendChild(tr);
 });
-
+ 
 // ---- Distribution chart ----
 const dist = [
-  ['Até 8h', 12, 11.9],
-  ['8–24h', 14, 13.9],
-  ['1–2 dias', 12, 11.9],
-  ['2–5 dias', 50, 49.5],
-  ['>5 dias', 13, 12.9],
+  ['Até 8h', 70, 24.8],
+  ['8–24h', 39, 13.8],
+  ['1–2 dias', 39, 13.8],
+  ['2–5 dias', 93, 33.0],
+  ['>5 dias', 41, 14.5],
 ];
 new Chart(document.getElementById('distChart'), {
   type: 'bar',
   data: {
-    labels: dist.map(d => d[0]),
-    datasets: [{ data: dist.map(d => d[1]), backgroundColor: ['#4a9d6f','#8fa1a7','#d9a63d','#d98a3d','#c85d4d'], borderRadius: 3 }]
+    labels: dist.map(x => x[0]),
+    datasets: [{ data: dist.map(x => x[1]), backgroundColor: ['#4a9d6f','#8fa1a7','#d9a63d','#d98a3d','#c85d4d'], borderRadius: 3 }]
   },
   options: {
     plugins: { legend: { display: false } },
     scales: { y: { beginAtZero: true, grid: { color: '#2c383e' } }, x: { grid: { display: false } } }
   }
 });
-
+ 
 // ---- Top 10 slowest processes ----
 const slow = [
-  ['#98 (ERP 1380323)', 10.0, 'Fabiano Piccoli'],
-  ['#104 (ERP 1380348)', 6.3, 'Eduardo Bonatto'],
-  ['#109 (ERP 1380349)', 6.2, 'Eduardo Bonatto'],
-  ['#76 (ERP 1379732)', 5.9, 'Fabiano Piccoli'],
-  ['#103 (ERP 1380338)', 5.7, 'Fabiano Piccoli'],
-  ['#108 (ERP 1380339)', 5.7, 'Fabiano Piccoli'],
-  ['#105 (ERP 1380739)', 5.7, 'Fabiano Piccoli'],
-  ['#48 (ERP 1379524)', 5.5, 'Glaucia Bueno'],
-  ['#110 (ERP 1380350)', 5.3, 'Eduardo Bonatto'],
-  ['#41 (ERP 1379593)', 5.1, 'Cristina Ciotta Andrade'],
+  ['#133', 13.1, '3', 'Marcio Korzeniewski'],
+  ['#336 (ERP 1381272)', 12.2, '1', 'Luana Gonçalves'],
+  ['#168 (ERP 1380989)', 12.1, '1', 'Cristiano Jacoby Muller'],
+  ['#213 (ERP 1380990)', 10.0, '1', 'Cristiano Jacoby Muller'],
+  ['#98 (ERP 1380323)', 10.0, '2', 'Fabiano Piccoli'],
+  ['#146 (ERP 1380882)', 10.0, '1', 'Julio Andre Becker'],
+  ['#147 (ERP 1380880)', 10.0, '1', 'Julio Andre Becker'],
+  ['#326 (ERP 1381171)', 7.4, '1', 'Luana Gonçalves'],
+  ['#194 (ERP 1380894)', 7.0, '2', 'Fabiano Piccoli'],
+  ['#284 (ERP 1381079)', 6.8, '1', 'Anderson Pepato'],
 ];
 const slowTbody = document.getElementById('slowTableBody');
 slow.forEach(r => {
   const tr = document.createElement('tr');
-  tr.innerHTML = `<td class="name">${r[0]}</td><td>${r[1].toFixed(1)}</td><td class="name">${r[2]}</td>`;
+  tr.innerHTML = `<td class="name">${r[0]}</td><td>${r[1].toFixed(1)}</td><td>${r[2]}</td><td class="name">${r[3]}</td>`;
   slowTbody.appendChild(tr);
 });
 </script>
-
+ 
 </body>
 </html>
+ 

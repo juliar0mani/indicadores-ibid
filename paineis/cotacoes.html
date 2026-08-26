@@ -98,36 +98,45 @@
     <h1>Painel de Participação e Conversão de Fornecedores</h1>
   </div>
   <div class="period-tag">
-    <strong>Jun a Ago/2026</strong>
-    158 processos · 156 fornecedores únicos (3 cadastros ERP duplicados unificados)
+    <strong>Jun a Ago/2026 (até 1ª quinzena)</strong>
+    271 processos · 243 fornecedores (cadastros)
   </div>
 </header>
+ 
+<div class="section-label" style="margin-top:0;">Leitura executiva</div>
+<div class="grid" style="grid-template-columns:1fr; margin-bottom:22px;">
+  <div class="panel">
+    <div class="panel-desc" style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:0;">
+      O portal registrou <b>271 processos</b> e <b>823 participações</b>, com <b>361 respostas (43,9%)</b>. O volume cresceu de 43 processos em junho para 117 em agosto, enquanto a taxa de resposta caiu de 55,1% para 43,2%. <b>Amanda</b> combina escala e melhor resposta (63,6% em 106 processos); <b>Tamara</b> concentra o maior volume (140), mas registra 32,9%. Tomadas de preço apresentam apenas 26,3% de resposta, abaixo de Compras (44,2%). Entre fornecedores, o número de cotações enviadas cresceu, mas a resposta caiu de 55,1% em junho para 42,1% em agosto, indicando necessidade de qualificação e follow-up dos convidados.
+    </div>
+  </div>
+</div>
  
 <div class="kpi-row">
   <div class="kpi">
     <div class="kpi-label">Cotações recebidas</div>
-    <div class="kpi-value mono">434</div>
-    <div class="kpi-sub">soma por fornecedor único</div>
+    <div class="kpi-value mono">829</div>
+    <div class="kpi-sub">soma por fornecedor (cadastro)</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Taxa de resposta</div>
-    <div class="kpi-value mono" style="color:var(--verde)">47,2%</div>
-    <div class="kpi-sub">205 de 434 cotações</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">44,4%</div>
+    <div class="kpi-sub">368 de 829 cotações</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Pedidos gerados</div>
-    <div class="kpi-value mono">105</div>
-    <div class="kpi-sub">72,2% das 151 cotações do tipo Compra</div>
+    <div class="kpi-value mono">195</div>
+    <div class="kpi-sub">74,4% das 262 cotações do tipo Compra</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Compras sem pedido</div>
-    <div class="kpi-value mono" style="color:var(--amarelo)">42</div>
-    <div class="kpi-sub">27,8% das 151 compras</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">54</div>
+    <div class="kpi-sub">20,6% das 262 compras</div>
   </div>
   <div class="kpi crit">
     <div class="kpi-label">Pior conversão por comprador</div>
     <div class="kpi-value mono" style="font-size:19px; color:var(--vermelho)">Vanessa</div>
-    <div class="kpi-sub">0% dos 4 processos de Compra</div>
+    <div class="kpi-sub">16,7% dos 6 processos de Compra</div>
   </div>
 </div>
  
@@ -135,7 +144,7 @@
 <div class="grid">
   <div class="panel">
     <div class="panel-title">Funil geral</div>
-    <div class="panel-desc">421 convites enviados a nível de processo (base_jul)</div>
+    <div class="panel-desc">823 participações a nível de processo (jun-ago)</div>
     <canvas id="funnelChart"></canvas>
   </div>
   <div class="panel">
@@ -153,6 +162,67 @@
   </div>
 </div>
  
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title">Comparativo — fora Amanda e Tamara</div>
+    <div class="panel-desc">Amanda e Tamara concentram a maior parte do volume pelo tipo de compra que fazem. Isolando o resto do time e olhando mês a mês dá pra ver a evolução de cada um sem o volume de um "esconder" o outro. Gisele saiu do time e não entra mais nessa comparação.</div>
+    <canvas id="restTeamMonthlyChart"></canvas>
+    <div class="panel-desc" style="margin-top:10px; margin-bottom:0;"><b>Vanessa</b> vem melhorando mês a mês (33,3% → 38,9% → 50,0%); <b>Matiano</b> só tem processo a partir de julho, sempre com 100%; <b>Maike</b> só entrou em agosto, com 23,1% — é quem precisa de mais atenção agora.</div>
+  </div>
+</div>
+ 
+<div class="section-label">Evolução mensal</div>
+<div class="grid two">
+  <div class="panel">
+    <div class="panel-title">Taxa de resposta mensal</div>
+    <div class="panel-desc">De todo mundo convidado a participar de uma cotação, quantos % responderam — por mês. Caiu de 55,1% em junho para ~43% em jul/ago e não recuperou.</div>
+    <canvas id="monthlyRateChart"></canvas>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Volume mensal</div>
+    <div class="panel-desc">Processos (barras) e participações/respostas (linhas) — o volume mais que dobrou de jun para jul e seguiu subindo em ago, mas as respostas não cresceram na mesma proporção</div>
+    <canvas id="monthlyVolumeChart"></canvas>
+  </div>
+</div>
+ 
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title">Cotações com resposta, por comprador</div>
+    <div class="panel-desc">% de processos que tiveram <b>pelo menos uma resposta</b> de fornecedor (diferente da taxa de resposta por participante) — Alexandre de Paula fica de fora: seu único processo ainda está "Em configuração", sem convite enviado</div>
+    <canvas id="respondedChart"></canvas>
+  </div>
+</div>
+ 
+<div class="grid two">
+  <div class="panel">
+    <div class="panel-title">Taxa de resposta por comprador — mês a mês</div>
+    <div class="panel-desc">% de respostas sobre participantes, por mês (— = sem processo no mês)</div>
+    <table>
+      <thead><tr><th>Comprador</th><th>Jun</th><th>Jul</th><th>Ago</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Amanda</td><td class="mono" style="color:var(--verde)">52,7%</td><td class="mono" style="color:var(--verde)">76,9%</td><td class="mono" style="color:var(--verde)">63,2%</td></tr>
+        <tr><td class="name">Tamara</td><td class="mono" style="color:var(--verde)">54,5%</td><td class="mono" style="color:var(--amarelo)">34,3%</td><td class="mono" style="color:var(--amarelo)">32,5%</td></tr>
+        <tr><td class="name">Vanessa</td><td class="mono" style="color:var(--vermelho)">33,3%</td><td class="mono" style="color:var(--amarelo)">38,9%</td><td class="mono" style="color:var(--amarelo)">50,0%</td></tr>
+        <tr><td class="name">Maike</td><td class="mono" style="color:var(--text-dim)">—</td><td class="mono" style="color:var(--text-dim)">—</td><td class="mono" style="color:var(--vermelho)">23,1%</td></tr>
+        <tr><td class="name">Matiano</td><td class="mono" style="color:var(--text-dim)">—</td><td class="mono" style="color:var(--verde)">100,0%</td><td class="mono" style="color:var(--verde)">100,0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Conversão em pedido (Compra) — mês a mês</div>
+    <div class="panel-desc">Distribuição dos processos de Compra por desfecho, por mês</div>
+    <table>
+      <thead><tr><th>Mês</th><th>Processos</th><th>Totalmente</th><th>Parcialmente</th><th>Não gerado</th><th style="width:26%">% totalmente</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Jun</td><td class="mono">43</td><td class="mono" style="color:var(--verde)">31</td><td class="mono" style="color:var(--amarelo)">0</td><td class="mono" style="color:var(--vermelho)">12</td><td class="mono">72,1%</td></tr>
+        <tr><td class="name">Jul</td><td class="mono">101</td><td class="mono" style="color:var(--verde)">82</td><td class="mono" style="color:var(--amarelo)">7</td><td class="mono" style="color:var(--vermelho)">12</td><td class="mono">81,2%</td></tr>
+        <tr><td class="name">Ago</td><td class="mono">115</td><td class="mono" style="color:var(--verde)">82</td><td class="mono" style="color:var(--amarelo)">6</td><td class="mono" style="color:var(--vermelho)">27</td><td class="mono">71,3%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+ 
+ 
 <div class="section-label">Conversão em pedido</div>
 <div class="grid" style="grid-template-columns:1fr;">
   <div class="panel">
@@ -163,24 +233,24 @@
       <tbody>
         <tr>
           <td class="name">Compra</td>
-          <td class="mono">151</td>
-          <td class="mono">400</td>
-          <td class="mono">2,65</td>
-          <td class="mono">185</td>
-          <td class="mono" style="color:var(--verde)">105</td>
-          <td class="mono" style="color:var(--amarelo)">4</td>
-          <td class="mono" style="color:var(--vermelho)">42</td>
+          <td class="mono">262</td>
+          <td class="mono">798</td>
+          <td class="mono">3,05</td>
+          <td class="mono">353</td>
+          <td class="mono" style="color:var(--verde)">195</td>
+          <td class="mono" style="color:var(--amarelo)">13</td>
+          <td class="mono" style="color:var(--vermelho)">54</td>
           <td><span class="status-ok" style="color:var(--verde)">Sim</span></td>
         </tr>
         <tr>
           <td class="name">Tomada de preço</td>
-          <td class="mono">4</td>
-          <td class="mono">15</td>
-          <td class="mono">3,75</td>
-          <td class="mono">3</td>
+          <td class="mono">6</td>
+          <td class="mono">19</td>
+          <td class="mono">3,17</td>
+          <td class="mono">5</td>
           <td class="mono">0</td>
           <td class="mono">0</td>
-          <td class="mono">4</td>
+          <td class="mono">6</td>
           <td><span style="color:var(--text-dim)">Não — pesquisa de mercado</span></td>
         </tr>
         <tr>
@@ -196,13 +266,13 @@
         </tr>
         <tr style="border-top:1px solid var(--line);">
           <td class="name" style="font-weight:600;">Total / média geral</td>
-          <td class="mono" style="font-weight:600;">158</td>
-          <td class="mono" style="font-weight:600;">421</td>
-          <td class="mono" style="font-weight:600;">2,66</td>
-          <td class="mono" style="font-weight:600;">191</td>
-          <td class="mono" style="font-weight:600;">105</td>
-          <td class="mono" style="font-weight:600;">4</td>
-          <td class="mono" style="font-weight:600;">49</td>
+          <td class="mono" style="font-weight:600;">271</td>
+          <td class="mono" style="font-weight:600;">823</td>
+          <td class="mono" style="font-weight:600;">3,04</td>
+          <td class="mono" style="font-weight:600;">361</td>
+          <td class="mono" style="font-weight:600;">195</td>
+          <td class="mono" style="font-weight:600;">13</td>
+          <td class="mono" style="font-weight:600;">63</td>
           <td></td>
         </tr>
       </tbody>
@@ -213,7 +283,7 @@
 <div class="grid" style="grid-template-columns:1fr;">
   <div class="panel">
     <div class="panel-title">Cotação virou pedido? — por comprador (só tipo Compra)</div>
-    <div class="panel-desc">% de processos totalmente gerados, parcialmente gerados ou não gerados — Maike fica de fora aqui: seu único processo é "Tomada de preço"</div>
+    <div class="panel-desc">% de processos totalmente gerados, parcialmente gerados ou não gerados — Alexandre de Paula fica de fora: seu único processo ainda está "Em configuração"</div>
     <canvas id="conversionChart"></canvas>
   </div>
 </div>
@@ -230,7 +300,7 @@
   </div>
   <div class="panel">
     <div class="panel-title crit">Top 10 — críticos</div>
-    <div class="panel-desc">Recebem muita cotação e respondem pouco (mín. 3 convites)</div>
+    <div class="panel-desc">Menor taxa de resposta entre quem recebeu mais cotações (mín. 3 convites)</div>
     <table>
       <thead><tr><th>#</th><th>Fornecedor</th><th>Receb.</th><th>Resp.</th><th style="width:30%">Taxa</th></tr></thead>
       <tbody id="critTableBody"></tbody>
@@ -249,36 +319,48 @@
   </div>
 </div>
  
+<div class="grid" style="grid-template-columns:1fr;">
+  <div class="panel">
+    <div class="panel-title">Evolução mensal da taxa de resposta — Top 10 fornecedores</div>
+    <div class="panel-desc">Taxa de resposta (%) mês a mês para os mesmos 10 fornecedores mais convidados acima — "—" quando não houve convite naquele mês</div>
+    <table>
+      <thead><tr><th>#</th><th>Fornecedor</th><th style="width:22%">Jun</th><th style="width:22%">Jul</th><th style="width:22%">Ago</th></tr></thead>
+      <tbody id="topSupplierMonthlyTableBody"></tbody>
+    </table>
+  </div>
+</div>
+ 
 <div class="grid two">
   <div class="panel">
     <div class="panel-title">Pontos de atenção</div>
     <div class="attention-list">
       <div class="attention-item">
-        <div class="txt"><b>Vanessa</b> teve <b>0% de conversão em pedido</b> nos 4 processos de Compra que conduziu — <span>nenhum "totalmente gerado"; vale investigar caso a caso</span></div>
+        <div class="txt"><b>Vanessa</b> segue com a <b>pior conversão em pedido</b> — 16,7% (1 de 6) dos processos de Compra — <span>melhorou frente ao período anterior (0%), mas ainda é a mais baixa entre compradores com volume relevante</span></div>
       </div>
       <div class="attention-item warn">
-        <div class="txt"><b>Tamara</b> concentra o maior volume (243 convites / 83 processos) mas taxa de resposta de fornecedor de 36,2% — <span>maior número absoluto de declínios (50)</span></div>
+        <div class="txt"><b>Tamara</b> concentra o maior volume (501 participações / 140 processos) mas taxa de resposta de 32,9% — <span>maior número absoluto de declínios (82)</span></div>
       </div>
-      <div class="attention-item good">
-        <div class="txt">3 razões sociais que apareciam com <b>ERPs distintos</b> foram unificadas nos rankings — <span>159 cadastros → 156 fornecedores únicos; histórico de participação consolidado</span></div>
+      <div class="attention-item">
+        <div class="txt"><b>APOLO COMÉRCIO E SERVIÇOS DE COMPONENTES ELETRÔNICOS</b> recebeu 11 cotações e não respondeu nenhuma — <span>maior caso de 0% de resposta em volume do período</span></div>
       </div>
-      <div class="attention-item info">
-        <div class="txt">Nenhum fornecedor que respondeu 3+ cotações ficou com 0 pedidos — <span>bom sinal: quem responde, historicamente, converte</span></div>
+      <div class="attention-item warn">
+        <div class="txt">4 fornecedores aparecem com <b>dois cadastros e CNPJs diferentes</b> — <span>BRS SP Suprimentos, Fusopar Parafusos, LF Comercial de Bens e Sulmed; vale confirmar se são filiais reais ou duplicidade de cadastro antes de consolidar rankings</span></div>
       </div>
     </div>
   </div>
   <div class="panel">
     <div class="panel-title">Recomendações</div>
     <div class="reco-list">
-      <div class="reco-item"><span class="reco-num">1</span><div class="txt"><b>Revisar cadastro dos 4 fornecedores com 0% de resposta</b> — <span>confirmar e-mail/contato ativo antes de continuar convidando</span></div></div>
-      <div class="reco-item"><span class="reco-num">2</span><div class="txt"><b>Investigar o processo da Vanessa</b> — <span>0% de conversão em 4 cotações de Compra pode indicar problema pontual (preço, prazo, tipo de item) e não necessariamente do fornecedor</span></div></div>
-      <div class="reco-item"><span class="reco-num">3</span><div class="txt"><b>Priorizar contato ativo com os 3 "críticos" de maior volume</b> — <span>Ferragem Aurora, Ferramentas Gerais e Marco Aurélio somam 80 convites com taxa média de 37%</span></div></div>
+      <div class="reco-item"><span class="reco-num">1</span><div class="txt"><b>Revisar o contato da APOLO COMÉRCIO</b> — <span>11 convites e 0% de resposta é o maior caso do período; confirmar e-mail/contato ativo antes de continuar convidando</span></div></div>
+      <div class="reco-item"><span class="reco-num">2</span><div class="txt"><b>Investigar o processo da Vanessa</b> — <span>mesmo com melhora, a conversão de 16,7% em 6 cotações de Compra pode indicar problema pontual (preço, prazo, tipo de item) e não necessariamente do fornecedor</span></div></div>
+      <div class="reco-item"><span class="reco-num">3</span><div class="txt"><b>Confirmar os 4 pares de cadastro com CNPJ diferente</b> — <span>BRS SP, Fusopar, LF Comercial e Sulmed podem ser filiais legítimas ou duplicidade — impacta a contagem de "fornecedores únicos"</span></div></div>
+      <div class="reco-item"><span class="reco-num">4</span><div class="txt"><b>Plano de ação para o Top 10 de fornecedores críticos</b> — <span>confirmar contato/e-mail ativo de cada um, reenviar convite direto (não só automático pelo portal) e, se não houver retorno em 2-3 tentativas, avaliar substituição por alternativa já homologada</span></div></div>
     </div>
   </div>
 </div>
  
 <footer>
-  Fonte: indicador_cotação.xlsx (abas base_jul, fornecedor x cotação, compradores, Análise Fornecedores) · 156 fornecedores únicos · KPIs de conversão consideram só o tipo Compra (151 processos) · Gap entre 421 e 434 convites segue sem causa confirmada.
+  Fonte: indicador_cotacao_novo.xlsx (abas Painel Cotações, Análise por Pedido, Análise Fornecedores, base fornecedor jun/jul/ago) · Período jun-ago/2026 (agosto até a 1ª quinzena) · 243 fornecedores (cadastros) · KPIs de conversão consideram só o tipo Compra (262 processos) · Gap entre 823 participações e 829 cotações: 14 vêm de processos ainda sem mês definido (só contam do lado comprador) + 11 de fornecedores com cadastro duplicado (contados 2x do lado fornecedor); o resto (~9) é ruído normal entre as duas extrações.
 </footer>
  
 <script>
@@ -291,7 +373,7 @@ new Chart(document.getElementById('funnelChart'), {
   type: 'bar',
   data: {
     labels: ['Participantes', 'Responderam', 'Não abriram', 'Declinaram', 'Abriram s/ resp.'],
-    datasets: [{ data: [421, 191, 114, 59, 57], backgroundColor: ['#5b6a70', '#4a9d6f', '#d9a63d', '#c85d4d', '#8fa1a7'], borderRadius: 3 }]
+    datasets: [{ data: [823, 361, 253, 103, 106], backgroundColor: ['#5b6a70', '#4a9d6f', '#d9a63d', '#c85d4d', '#8fa1a7'], borderRadius: 3 }]
   },
   options: {
     indexAxis: 'y',
@@ -305,19 +387,19 @@ new Chart(document.getElementById('pieChart'), {
   type: 'doughnut',
   data: {
     labels: ['Responderam', 'Não abriram', 'Declinaram', 'Abriram s/ resp.'],
-    datasets: [{ data: [191, 114, 59, 57], backgroundColor: ['#4a9d6f', '#d9a63d', '#c85d4d', '#8fa1a7'], borderColor: '#1a2226', borderWidth: 2 }]
+    datasets: [{ data: [361, 253, 103, 106], backgroundColor: ['#4a9d6f', '#d9a63d', '#c85d4d', '#8fa1a7'], borderColor: '#1a2226', borderWidth: 2 }]
   },
   options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } } }
 });
  
 // ---- Funil por comprador ----
 const buyers = [
-  { name: 'Amanda', part:142, na:35, asr:12, resp:86, decl:9 },
-  { name: 'Tamara', part:243, na:66, asr:39, resp:88, decl:50 },
-  { name: 'Vanessa', part:21, na:8, asr:5, resp:8, decl:0 },
+  { name: 'Amanda', part:272, na:57, asr:21, resp:173, decl:21 },
+  { name: 'Tamara', part:501, na:177, asr:77, resp:165, decl:82 },
+  { name: 'Vanessa', part:25, na:9, asr:6, resp:10, decl:0 },
   { name: 'Gisele', part:10, na:2, asr:0, resp:8, decl:0 },
-  { name: 'Matiano', part:1, na:0, asr:0, resp:1, decl:0 },
-  { name: 'Maike', part:4, na:3, asr:1, resp:0, decl:0 },
+  { name: 'Matiano', part:2, na:0, asr:0, resp:2, decl:0 },
+  { name: 'Maike', part:13, na:8, asr:2, resp:3, decl:0 },
 ];
 new Chart(document.getElementById('buyerChart'), {
   type: 'bar',
@@ -339,13 +421,150 @@ new Chart(document.getElementById('buyerChart'), {
   }
 });
  
+// ---- Evolução mensal: taxa de resposta ----
+new Chart(document.getElementById('monthlyRateChart'), {
+  type: 'line',
+  data: {
+    labels: ['Jun', 'Jul', 'Ago'],
+    datasets: [
+      { label: 'Taxa de resposta', data: [55.1, 43.2, 43.2], borderColor: '#3ba39b', backgroundColor: '#3ba39b', tension: 0.3 },
+    ]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: false, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+ 
+// ---- Evolução mensal: volume (processos + participações + respostas) ----
+new Chart(document.getElementById('monthlyVolumeChart'), {
+  data: {
+    labels: ['Jun', 'Jul', 'Ago'],
+    datasets: [
+      { type: 'bar', label: 'Processos', data: [43, 106, 117], backgroundColor: '#5b6a70', yAxisID: 'y' },
+      { type: 'line', label: 'Participações', data: [98, 329, 382], borderColor: '#4a9d6f', backgroundColor: '#4a9d6f', tension: 0.3, yAxisID: 'y1' },
+      { type: 'line', label: 'Respostas', data: [54, 142, 165], borderColor: '#d9a63d', backgroundColor: '#d9a63d', tension: 0.3, yAxisID: 'y1' },
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { position: 'left', beginAtZero: true, grid: { color: '#2c383e' } },
+      y1: { position: 'right', beginAtZero: true, grid: { display: false } }
+    }
+  }
+});
+ 
+// ---- Comparativo mensal — fora Amanda e Tamara (% taxa de resposta) ----
+const restTeamMonthly = [
+  { name: 'Vanessa', jun: 33.3, jul: 38.9, ago: 50.0 },
+  { name: 'Maike', jun: null, jul: null, ago: 23.1 },
+  { name: 'Matiano', jun: null, jul: 100.0, ago: 100.0 },
+];
+new Chart(document.getElementById('restTeamMonthlyChart'), {
+  type: 'bar',
+  data: {
+    labels: restTeamMonthly.map(s => s.name),
+    datasets: [
+      { label: 'Jun', data: restTeamMonthly.map(s => s.jun), backgroundColor: '#5b6a70' },
+      { label: 'Jul', data: restTeamMonthly.map(s => s.jul), backgroundColor: '#3ba39b' },
+      { label: 'Ago', data: restTeamMonthly.map(s => s.ago), backgroundColor: '#d98a3d' },
+    ]
+  },
+  options: {
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } }
+    }
+  }
+});
+ 
+// ---- Cotações com resposta, por comprador (processo teve pelo menos 1 resposta) ----
+const respondedByBuyer = [
+  { name: 'Vanessa', pct: 100.0, n: '9 de 9' },
+  { name: 'Amanda', pct: 94.3, n: '100 de 106' },
+  { name: 'Tamara', pct: 80.0, n: '112 de 140' },
+  { name: 'Matiano', pct: 66.7, n: '2 de 3' },
+  { name: 'Maike', pct: 60.0, n: '3 de 5' },
+];
+new Chart(document.getElementById('respondedChart'), {
+  type: 'bar',
+  data: {
+    labels: respondedByBuyer.map(b => b.name),
+    datasets: [{
+      label: '% de cotações com resposta',
+      data: respondedByBuyer.map(b => b.pct),
+      backgroundColor: respondedByBuyer.map(b => b.pct >= 80 ? '#4a9d6f' : b.pct >= 60 ? '#d9a63d' : '#c85d4d'),
+      borderRadius: 3
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => respondedByBuyer[ctx.dataIndex].n + ' processos com resposta' } }
+    },
+    scales: {
+      x: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' }, grid: { color: '#2c383e' } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+ 
+// ---- Evolução mensal Top 10 fornecedores (% resposta) — mesmo estilo do Top 10 ----
+function renderMonthlyTable(id, rows) {
+  const tbody = document.getElementById(id);
+  const cell = (pct) => {
+    if (pct === null) {
+      return `<td><span class="mono" style="color:var(--text-dim)">—</span></td>`;
+    }
+    const color = pct >= 50 ? 'var(--verde)' : (pct >= 25 ? 'var(--amarelo)' : 'var(--vermelho)');
+    return `
+      <td>
+        <div class="bar-cell">
+          <div class="bar-track"><div class="bar-fill" style="width:${Math.min(pct,100)}%; background:${color}"></div></div>
+          <span class="mono" style="min-width:38px; text-align:right;">${pct.toFixed(0)}%</span>
+        </div>
+      </td>`;
+  };
+  rows.forEach((row, i) => {
+    const { name, jun, jul, ago } = row;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="rank mono">${i+1}</td>
+      <td class="name">${name}</td>
+      ${cell(jun)}
+      ${cell(jul)}
+      ${cell(ago)}`;
+    tbody.appendChild(tr);
+  });
+}
+renderMonthlyTable('topSupplierMonthlyTableBody', [
+  { name: 'MARCO AURELIO TEIXEIRA DA SILVA', jun: null, jul: 50.0, ago: 38.9 },
+  { name: 'FERRAGEM AURORA', jun: null, jul: 34.5, ago: 50.0 },
+  { name: 'CONTINENTAL FERRAMENTAS', jun: 50.0, jul: 30.4, ago: 17.6 },
+  { name: 'FERRAMENTAS GERAIS COM. IMPORT.', jun: null, jul: 32.0, ago: 23.1 },
+  { name: 'DR SUPRIMENTOS ESCRITÓRIO', jun: 75.0, jul: 6.7, ago: 94.1 },
+  { name: 'CENTRAL DE FERRAMENTAS GMR', jun: null, jul: 58.8, ago: 50.0 },
+  { name: 'G 3 DISTRIBUIDORA ESCRITÓRIO', jun: 100.0, jul: 72.7, ago: 84.6 },
+  { name: 'BRS SP SUPRIMENTOS', jun: 50.0, jul: null, ago: 41.7 },
+  { name: 'STI COMPUTADORES', jun: 100.0, jul: 44.4, ago: 37.5 },
+  { name: 'ELETROPEÇAS COMERCIAL', jun: 50.0, jul: 83.3, ago: 37.5 },
+]);
+ 
 // ---- Conversão em pedido por comprador (só tipo Compra) ----
 const conv = [
-  { name: 'Amanda', total:43, parcial:1, nao:13 },
-  { name: 'Tamara', total:55, parcial:3, nao:23 },
+  { name: 'Tamara', total:104, parcial:5, nao:29 },
+  { name: 'Amanda', total:82, parcial:6, nao:16 },
   { name: 'Gisele', total:6, parcial:0, nao:1 },
-  { name: 'Matiano', total:1, parcial:0, nao:1 },
-  { name: 'Vanessa', total:0, parcial:0, nao:4 },
+  { name: 'Vanessa', total:1, parcial:1, nao:4 },
+  { name: 'Maike', total:1, parcial:1, nao:2 },
+  { name: 'Matiano', total:1, parcial:0, nao:2 },
 ];
 new Chart(document.getElementById('conversionChart'), {
   type: 'bar',
@@ -390,42 +609,42 @@ function renderTable(id, rows, ratioIdx, capAt100) {
 }
  
 renderTable('topTableBody', [
-  ['MARCO AURELIO TEIXEIRA DA SILVA', 28, 13],
-  ['FERRAGEM AURORA', 27, 9],
-  ['FERRAMENTAS GERAIS COM. IMPORT.', 25, 8],
-  ['CONTINENTAL FERRAMENTAS', 23, 8],
-  ['DR SUPRIMENTOS ESCRITÓRIO', 19, 4],
-  ['CENTRAL DE FERRAMENTAS GMR', 18, 10],
-  ['G 3 DISTRIBUIDORA ESCRITÓRIO', 15, 12],
-  ['STI COMPUTADORES', 12, 6],
-  ['ELETROPEÇAS COMERCIAL', 8, 6],
-  ['ART MAGIC PROD. LIMPEZA', 7, 2],
+  ['MARCO AURELIO TEIXEIRA DA SILVA', 48, 21],
+  ['FERRAGEM AURORA', 43, 17],
+  ['CONTINENTAL FERRAMENTAS', 42, 11],
+  ['FERRAMENTAS GERAIS COM. IMPORT.', 40, 11],
+  ['DR SUPRIMENTOS ESCRITÓRIO', 36, 20],
+  ['CENTRAL DE FERRAMENTAS GMR', 28, 15],
+  ['G 3 DISTRIBUIDORA ESCRITÓRIO', 28, 23],
+  ['BRS SP SUPRIMENTOS', 18, 6],
+  ['STI COMPUTADORES', 18, 8],
+  ['ELETROPEÇAS COMERCIAL', 16, 9],
 ]);
  
 renderTable('critTableBody', [
-  ['ACEFRAN EMBALAGENS', 3, 0],
-  ['APOLO COMP. ELETRÔNICOS', 5, 0],
-  ['POLLI MAT. P/ CONSTRUÇÃO', 3, 0],
+  ['APOLO COMP. ELETRÔNICOS', 11, 0],
+  ['2S PROMOCIONAL BRINDES', 5, 0],
   ['LF COMERCIAL DE BENS', 5, 0],
-  ['ELETRUS COMPONENTES', 5, 1],
-  ['DR SUPRIMENTOS ESCRITÓRIO', 19, 4],
-  ['MENON COM E REPR', 4, 1],
-  ['VALMASTER TUBOS E CONEXÕES', 4, 1],
-  ['VKX AUTOMAÇÃO INDUSTRIAL', 4, 1],
-  ['ART MAGIC PROD. LIMPEZA', 7, 2],
+  ['FUSOPAR PARAFUSOS', 4, 0],
+  ['VULCANO COM. DE BORRACHAS', 4, 0],
+  ['ROSSI MAT. DE CONSTRUÇÃO', 4, 0],
+  ['ACEFRAN EMBALAGENS', 3, 0],
+  ['MEGA MILANO', 3, 0],
+  ['LF COMERCIAL DE BENS', 3, 0],
+  ['BRS SP SUPRIMENTOS', 3, 0],
 ]);
  
 renderTable('convTableBody', [
-  ['TECHFER FERRAMENTAS', 4, 7],
-  ['E D PROD. LIMPEZA', 3, 5],
-  ['SULMAX FERRAMENTAS', 4, 5],
-  ['G 3 DISTRIBUIDORA ESCRITÓRIO', 15, 14],
-  ['IRMÃOS ANDREAZZA', 4, 3],
-  ['VOLARE COMÉRCIO ELETRÔNICOS', 7, 5],
-  ['BRS SP SUPRIMENTOS', 3, 2],
-  ['MAD BRINDES', 3, 2],
-  ['MAGNANI E CIA', 3, 2],
-  ['CELETRO CAXIAS MAT. ELÉTRICOS', 5, 3],
+  ['IRMÃOS ANDREAZZA', 3, 4],
+  ['TECHFER FERRAMENTAS', 9, 9],
+  ['E D PROD. LIMPEZA', 9, 8],
+  ['IRMÃOS ANDREAZZA F12 FARROUPILHA', 4, 3],
+  ['DIFERENCIAL ROLAMENTOS', 3, 2],
+  ['EROMA', 3, 2],
+  ['G 3 DISTRIBUIDORA ESCRITÓRIO', 28, 17],
+  ['EFALL MAT. ELÉTRICOS', 4, 2],
+  ['MI DIGITAL', 4, 2],
+  ['SIFER IND. COM. PARAFUSOS', 4, 2],
 ], null, false);
 </script>
  
