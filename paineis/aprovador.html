@@ -29,6 +29,7 @@
   .kpi-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:8px; }
   .kpi-value{ font-family:'IBM Plex Mono', monospace; font-size:26px; font-weight:600; line-height:1.1; }
   .kpi-sub{ margin-top:8px; font-size:11.5px; color:var(--text-dim); }
+  .kpi-delta{ margin-top:6px; font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:11px; }
  
   .leitura{
     background:var(--panel-2); border:1px solid var(--line); border-left:3px solid var(--accent-2);
@@ -136,7 +137,7 @@
     <h1>Painel Aprovações</h1>
   </div>
   <div class="period-tag">
-    <strong>Base até 24/08/2026</strong>
+    <strong>Base fechada em 31/08/2026</strong>
     Jun–ago/2026 · tempos corridos por evento único · níveis 1, 2 e 3
   </div>
 </header>
@@ -144,29 +145,33 @@
 <div class="kpi-row">
   <div class="kpi">
     <div class="kpi-label">Eventos Únicos</div>
-    <div class="kpi-value mono">332</div>
+    <div class="kpi-value mono">690</div>
     <div class="kpi-sub">aprovações consolidadas, todos os níveis</div>
+    <div class="kpi-delta" style="color:var(--verde)">▲ +269% vs jul/26 (502 em ago.)</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Tempo médio</div>
-    <div class="kpi-value mono">48,0h</div>
-    <div class="kpi-sub">~2,0 dias corridos</div>
+    <div class="kpi-value mono">36,9h</div>
+    <div class="kpi-sub">~1,5 dia corrido</div>
+    <div class="kpi-delta" style="color:var(--verde)">▼ -40% vs jul/26 (32,7h em ago.)</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Mediana</div>
-    <div class="kpi-value mono">27,2h</div>
+    <div class="kpi-value mono">19,4h</div>
     <div class="kpi-sub">metade das aprovações abaixo disso</div>
+    <div class="kpi-delta" style="color:var(--verde)">▼ -62% vs jul/26 (18,2h em ago.)</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Aprovadas em até 24h</div>
-    <div class="kpi-value mono" style="color:var(--amarelo)">44,3%</div>
-    <div class="kpi-sub">147 de 332 eventos</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">58,8%</div>
+    <div class="kpi-sub">406 de 690 eventos</div>
+    <div class="kpi-delta" style="color:var(--verde)">▲ +19,1 p.p. vs jul/26 (62,5% em ago.)</div>
   </div>
 </div>
  
 <div class="leitura">
   <span class="leitura-label">Leitura executiva</span>
-  Foram consolidados 332 eventos únicos de aprovação entre 17/06 e 24/08/2026. O tempo médio foi de 48 horas e a mediana de 27 horas; 44% das aprovações ocorreram em até 24 horas. Olhando por mês, agosto reverte a piora de julho — a média cai de volta para perto do nível de junho — mas o volume mensal continua subindo (40 → 118 → 174 eventos), então o sistema está processando mais pedidos e em menos tempo por pedido. Tempos são corridos, incluindo noites e fins de semana.
+  Com agosto fechado, foram consolidados 690 eventos únicos de aprovação entre início de junho e 31/08/2026. O tempo médio caiu para 37 horas e a mediana para 19 horas; 59% das aprovações ocorreram em até 24 horas — uma melhora sensível frente ao corte parcial anterior. Olhando por mês, o volume disparou (52 → 136 → 502 eventos) e mesmo assim o tempo médio de agosto (33h) ficou 40% abaixo de julho e próximo do patamar de junho, o melhor sinal de que o sistema está absorvendo escala sem perder velocidade. Tempos são corridos, incluindo noites e fins de semana; aprovações realizadas em setembro foram excluídas desta base.
 </div>
  
 <div class="def-box">
@@ -184,7 +189,7 @@
 <div class="grid">
   <div class="panel">
     <div class="panel-title">Tempo médio por mês — eventos vs. processos</div>
-    <div class="panel-desc">Comparação pelo mês do último envio para aprovação · agosto é parcial (até 24/08)</div>
+    <div class="panel-desc">Comparação pelo mês do último envio para aprovação · agosto fechado (até 31/08)</div>
     <canvas id="monthlyChart"></canvas>
   </div>
   <div class="panel">
@@ -199,7 +204,7 @@
 </div>
 <div class="leitura" style="margin-bottom:28px;">
   <span class="leitura-label">Leitura da tendência</span>
-  Junho teve volume baixo (40 eventos) e tempo médio de 40h. Julho piorou bastante — 118 eventos e média de 63h (+56% vs. junho) — provavelmente reflexo do aumento de volume enquanto o processo ainda estava sendo rodado. Agosto (parcial, até 24/08) já mostra recuperação: 174 eventos com média de 40h (-37% vs. julho), o melhor patamar dos três meses mesmo com o maior volume.
+  Junho teve volume baixo (52 eventos) e tempo médio de 32h. Julho piorou — 136 eventos e média de 54h (+71% vs. junho) — reflexo do aumento de volume enquanto o processo ainda estava sendo rodado. Agosto, já fechado, confirma a recuperação: 502 eventos (quase 4x julho) com média de 33h (-40% vs. julho), o melhor patamar dos três meses mesmo sendo o de maior volume, de longe. Processos seguem o mesmo padrão: 35h em junho, 64h em julho (+83%) e 38h em agosto (-40%).
 </div>
  
 <div class="section-label"><span class="section-num">2</span>Desempenho por nível de aprovação</div>
@@ -223,7 +228,7 @@
 <div class="section-label"><span class="section-num">3</span>Evolução por aprovador — julho → agosto</div>
 <div class="leitura">
   <span class="leitura-label">Leitura executiva</span>
-  Entre os aprovadores com atividade em julho e agosto (e média de julho acima de zero), a maior melhora foi de <b>Jonathan Langone da Silva</b>: de 71,3h para 2,2h (-97%). A maior piora foi de <b>Marcelo Gerhardt</b>: de 9,5h para 29,4h (+209%). Aprovadores com média zerada ficam de fora desse ranking percentual.
+  Entre os 18 aprovadores com atividade em julho e agosto (e média de julho acima de zero), a maior melhora foi de <b>Jonathan Langone da Silva</b>: de 71,3h para 1,9h (-97%). A maior piora foi de <b>Marcelo Gerhardt</b>: de 9,5h para 27,9h (+193%). Aprovações de setembro foram excluídas; aprovadores com média zerada ficam de fora desse ranking percentual.
 </div>
 <div class="grid two">
   <div class="panel">
@@ -239,7 +244,7 @@
 <div class="section-label"><span class="section-num">4</span>Detalhamento mensal por aprovador</div>
 <div class="grid" style="grid-template-columns:1fr;">
   <div class="panel">
-    <div class="panel-title">34 aprovadores — jun / jul / ago lado a lado</div>
+    <div class="panel-title">36 aprovadores — jun / jul / ago lado a lado</div>
     <div class="panel-desc">Ordenado pelo tempo médio geral (maior → menor) · valores em <span style="color:var(--verde)">verde</span> = queda vs. mês anterior · valores em <span style="color:var(--vermelho)">vermelho</span> = alta vs. mês anterior</div>
     <div class="table-scroll">
       <table>
@@ -279,18 +284,18 @@
 <div class="kpi-row n3" style="margin-bottom:20px;">
   <div class="kpi">
     <div class="kpi-label">Processos analisados</div>
-    <div class="kpi-value mono">282</div>
+    <div class="kpi-value mono">592</div>
     <div class="kpi-sub">envio até última aprovação</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Tempo médio do processo</div>
-    <div class="kpi-value mono">2,4 dias</div>
-    <div class="kpi-sub">mediana: 1,9 dias</div>
+    <div class="kpi-value mono">1,8 dia</div>
+    <div class="kpi-sub">mediana: 0,9 dia</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Concluídos em até 24h</div>
-    <div class="kpi-value mono" style="color:var(--amarelo)">38,7%</div>
-    <div class="kpi-sub">109 de 282 processos</div>
+    <div class="kpi-value mono" style="color:var(--amarelo)">55,4%</div>
+    <div class="kpi-sub">328 de 592 processos</div>
   </div>
 </div>
  
@@ -315,23 +320,26 @@
   <div class="panel">
     <div class="panel-title">Pontos de atenção</div>
     <div class="attention-list">
-      <div class="attention-item">
-        <div class="txt"><b>Volume subiu forte</b> em julho e agosto (118 e 174 eventos vs. 40 em junho) — <span>é o principal motivo de julho ter piorado; agosto mostra que dá para escalar volume sem piorar o tempo médio</span></div>
+      <div class="attention-item good">
+        <div class="txt"><b>Volume quase decuplicou e o tempo médio caiu</b> — agosto fechou com 502 eventos (vs. 52 em junho e 136 em julho) e média de 33h, 40% abaixo de julho e perto do nível de junho — <span>é o melhor indício até agora de que o portal aguenta escala sem travar</span></div>
       </div>
       <div class="attention-item">
-        <div class="txt"><b>Luana Gonçalves, Fabiano Piccoli, Silvia Regina e Eduardo Bonatto</b> concentram o maior volume entre os gargalos reais (29, 18, 29 e 40 eventos) — <span>juntos são 116 dos 332 eventos, então qualquer ganho de tempo neles tem efeito grande na média geral</span></div>
+        <div class="txt"><b>Eduardo Bonatto, Janice Martinotto, Luana Gonçalves, Silvia Regina e Fabiano Piccoli</b> concentram o maior volume entre os gargalos reais (67, 57, 45, 38 e 38 eventos) — <span>juntos são 245 dos 690 eventos, então qualquer ganho de tempo neles tem efeito grande na média geral</span></div>
       </div>
       <div class="attention-item">
-        <div class="txt"><b>Marcelo Gerhardt e Janice Martinotto</b> pioraram forte de julho para agosto (+209% e +103%) — <span>vale entender se foi pontual (poucos pedidos, mais sensível a outliers) ou início de uma tendência</span></div>
+        <div class="txt"><b>Um único pedido está distorcendo a piora de Janice Martinotto</b> — o pedido #338 ficou 24 dias parado na aprovação de nível 1 dela; sem esse caso, sua média de agosto cairia bem abaixo dos 88h reportados — <span>vale confirmar se foi uma falha pontual (esquecimento, ausência) antes de tratar como padrão</span></div>
+      </div>
+      <div class="attention-item">
+        <div class="txt"><b>Marcelo Gerhardt e william nunes</b> pioraram forte de julho para agosto (+193% e +169%) — <span>volume ainda baixo nos dois (10 e 2 eventos em agosto), então vale confirmar se é tendência ou poucos casos isolados</span></div>
       </div>
       <div class="attention-item info">
-        <div class="txt">1 processo (#133) passou por <b>3 níveis de aprovação e levou 13,1 dias</b> — <span>o único caso com 3 níveis no período, vale conferir se era necessário</span></div>
+        <div class="txt">Os <b>3 processos mais lentos da base inteira são de agosto</b> (#338 com 24,2 dias e 2 níveis; #384 e #383, ambos 20,3 dias em nível único, aprovados por Cristiano Jacoby Muller) — <span>vale checar se algo mudou na rotina desses aprovadores em agosto</span></div>
       </div>
       <div class="attention-item info">
-        <div class="txt"><b>Próxima base vai trazer relatório de pedidos em aberto</b> — <span>hoje o painel só olha para trás (pedidos já concluídos); com os pedidos em aberto dá para acompanhar aging em tempo real, antes do fechamento do mês</span></div>
+        <div class="txt"><b>Carlos Gustavo Miolo de Oliveira e Maike Jose de Souza</b> aparecem como aprovadores pela primeira vez em agosto — <span>bom sinal de que a base de aprovadores ativos no portal está crescendo, vale acompanhar a evolução deles nos próximos meses</span></div>
       </div>
       <div class="attention-item info">
-        <div class="txt"><b>Sazonalidade por dia da semana ainda não foi analisada</b> — <span>como os tempos são corridos (incluem fins de semana), pedidos enviados perto de sexta/sábado podem puxar a média para cima sem que seja demora do aprovador — a investigar na próxima base</span></div>
+        <div class="txt"><b>Matiano, Tamara, Amanda, Vanessa, Gisele e Maike seguem com média zerada</b> e cresceram junto com o volume geral (ex.: Vanessa 0 → 12 → 48 eventos) — <span>como já observado nas bases anteriores, isso indica autoaprovação; vale confirmar se esse padrão é esperado, já que agora representa uma fatia maior do volume total</span></div>
       </div>
       <div class="attention-item info">
         <div class="txt"><b>Nível 2 e 3 hoje mostram o tempo total desde o envio do pedido</b>, não o tempo isolado de cada etapa — <span>o ideal é medir separadamente quanto tempo levou do fim do Nível 1 até a aprovação do Nível 2 (e do Nível 2 ao Nível 3), para saber quanto cada alçada realmente demora por si só</span></div>
@@ -341,16 +349,16 @@
   <div class="panel">
     <div class="panel-title">Recomendações</div>
     <div class="reco-list">
-      <div class="reco-item"><span class="reco-num">1</span><div class="txt">Conversar com <b>Luana Gonçalves, Fabiano Piccoli e Silvia Regina</b> — <span>maior volume entre os gargalos reais, então qualquer melhora ali puxa a média geral para baixo</span></div></div>
-      <div class="reco-item"><span class="reco-num">2</span><div class="txt">Usar <b>Jonathan Langone da Silva e Fabiano Piccoli</b> (maiores quedas de tempo jul→ago) como referência — <span>vale entender o que mudou na rotina deles entre os dois meses</span></div></div>
-      <div class="reco-item"><span class="reco-num">3</span><div class="txt">Acompanhar <b>Marcelo Gerhardt e Janice Martinotto</b> no fechamento de agosto — <span>a piora pode ser pontual (poucos pedidos) ou o início de um padrão</span></div></div>
-      <div class="reco-item"><span class="reco-num">4</span><div class="txt">Configurar um alerta automático para pedidos parados <b>há mais de 48h sem aprovação</b> — <span>41% dos eventos de Nível 1 já passam desse tempo</span></div></div>
+      <div class="reco-item"><span class="reco-num">1</span><div class="txt">Conversar com <b>Eduardo Bonatto, Janice Martinotto e Luana Gonçalves</b> — <span>maior volume entre os gargalos reais, então qualquer melhora ali puxa a média geral para baixo</span></div></div>
+      <div class="reco-item"><span class="reco-num">2</span><div class="txt">Verificar o caso do <b>pedido #338</b> com Janice Martinotto — <span>entender por que ficou 24 dias parado ajuda a isolar se a piora dela é um outlier ou um padrão real</span></div></div>
+      <div class="reco-item"><span class="reco-num">3</span><div class="txt">Usar <b>Jonathan Langone da Silva e Fabiano Piccoli</b> (maiores quedas de tempo jul→ago) como referência — <span>vale entender o que mudou na rotina deles entre os dois meses</span></div></div>
+      <div class="reco-item"><span class="reco-num">4</span><div class="txt">Configurar um alerta automático para pedidos parados <b>há mais de 48h sem aprovação</b> — <span>29% dos eventos de Nível 1 já passam desse tempo</span></div></div>
     </div>
   </div>
 </div>
  
 <footer>
-  Fonte: indicador_aprovador.xlsx (abas Indicadores, Processos, Evolução Mensal, Evolução Aprovadores) · Base: Base Compras Novo · Estrutura e números seguem exatamente o que a planilha já calculou. Tempos são corridos (incluem noites e fins de semana). Agosto é parcial até 24/08/2026.
+  Fonte: indicador_aprovador.xlsx (abas Indicadores, Processos, Evolução Mensal, Evolução Aprovadores) · Base: base compras jun-ago. Estrutura e números seguem exatamente o que a planilha já calculou. Tempos são corridos (incluem noites e fins de semana). Base fechada em 31/08/2026 · aprovações realizadas em setembro foram excluídas.
 </footer>
  
 <script>
@@ -364,9 +372,9 @@ function d(v){ return v==null ? '—' : v.toFixed(1); }
  
 // ---- Evolução mensal (geral) ----
 const monthly = [
-  { mes:'Jun/26', eventos:40, media:40.3, mediana:21.6, ate24:0.525, processos:39, mediaProc:44.6, medianaProc:26.1, ate24Proc:0.487 },
-  { mes:'Jul/26', eventos:118, media:62.8, mediana:51.2, ate24:0.347, processos:98, mediaProc:75.7, medianaProc:63.6, ate24Proc:0.276 },
-  { mes:'Ago/26*', eventos:174, media:39.8, mediana:24.1, ate24:0.489, processos:145, mediaProc:46.9, medianaProc:27.2, ate24Proc:0.434 },
+  { mes:'Jun/26', eventos:52, media:31.9, mediana:6.2, ate24:0.635, processos:51, mediaProc:35.0, medianaProc:6.3, ate24Proc:0.608 },
+  { mes:'Jul/26', eventos:136, media:54.5, mediana:47.8, ate24:0.434, processos:116, mediaProc:63.9, medianaProc:50.5, ate24Proc:0.388 },
+  { mes:'Ago/26', eventos:502, media:32.7, mediana:18.2, ate24:0.625, processos:425, mediaProc:38.3, medianaProc:18.4, ate24Proc:0.593 },
 ];
  
 new Chart(document.getElementById('monthlyChart'), {
@@ -393,9 +401,9 @@ monthly.forEach(m => {
  
 // ---- Nível ----
 const levels = [
-  { nivel: 'Nível 1', eventos: 282, media: 47.8, dias: 1.99, mediana: 27.2, ate24: 0.4539, mais48: 0.4078, max: 291.9 },
-  { nivel: 'Nível 2', eventos: 45,  media: 50.7, dias: 2.11, mediana: 27.2, ate24: 0.3556, mais48: 0.3778, max: 172.4 },
-  { nivel: 'Nível 3', eventos: 5,   media: 36.5, dias: 1.52, mediana: 22.0, ate24: 0.6,    mais48: 0.4,    max: 69.3 },
+  { nivel: 'Nível 1', eventos: 592, media: 36.2, dias: 1.51, mediana: 16.7, ate24: 0.6064, mais48: 0.2905, max: 576.6 },
+  { nivel: 'Nível 2', eventos: 85,  media: 43.3, dias: 1.80, mediana: 25.3, ate24: 0.4235, mais48: 0.3412, max: 172.4 },
+  { nivel: 'Nível 3', eventos: 13,  media: 27.0, dias: 1.13, mediana: 21.6, ate24: 0.8462, mais48: 0.1538, max: 69.3  },
 ];
  
 new Chart(document.getElementById('levelChart'), {
@@ -422,18 +430,18 @@ levels.forEach(l => {
  
 // ---- Destaques julho -> agosto ----
 const melhorias = [
-  { nome:'Jonathan Langone da Silva - LOGISTICA INTERNA', evJul:1, medJul:71.3, evAgo:2, medAgo:2.2, delta:-0.969 },
-  { nome:'Fabiano Piccoli - SCM - Cord. Vendas', evJul:9, medJul:128.7, evAgo:8, medAgo:24.1, delta:-0.813 },
-  { nome:'Eduardo Bonatto Duarte', evJul:17, medJul:85.1, evAgo:20, medAgo:19.0, delta:-0.777 },
-  { nome:'Cristiano Jacoby Muller', evJul:2, medJul:265.2, evAgo:2, medAgo:63.7, delta:-0.760 },
+  { nome:'Jonathan Langone da Silva - LOGISTICA INTERNA', evJul:1, medJul:71.3, evAgo:3, medAgo:1.9, delta:-0.973 },
+  { nome:'Fabiano Piccoli - SCM - Cord. Vendas', evJul:9, medJul:128.7, evAgo:28, medAgo:33.3, delta:-0.741 },
   { nome:'Glaucia Bueno - SCM - Marketing', evJul:1, medJul:112.4, evAgo:3, medAgo:29.1, delta:-0.741 },
+  { nome:'Eduardo Bonatto Duarte', evJul:17, medJul:85.1, evAgo:47, medAgo:33.0, delta:-0.612 },
+  { nome:'Marcio Korzeniewski - SUT - Diretor', evJul:3, medJul:64.8, evAgo:13, medAgo:27.0, delta:-0.583 },
 ];
 const pioras = [
-  { nome:'Marcelo Gerhardt - SME - Vendas', evJul:4, medJul:9.5, evAgo:2, medAgo:29.4, delta:2.091 },
-  { nome:'Janice Martinotto - SFF - Cord. Galvanica', evJul:10, medJul:39.7, evAgo:8, medAgo:80.5, delta:1.027 },
-  { nome:'Marcelo Rambo Agnes - SUT - Coordenação', evJul:6, medJul:33.7, evAgo:12, medAgo:50.5, delta:0.501 },
-  { nome:'Luana Goncalves dos Santos - SME - Compras', evJul:9, medJul:62.3, evAgo:18, medAgo:79.5, delta:0.275 },
+  { nome:'Marcelo Gerhardt - SME - Vendas', evJul:4, medJul:9.5, evAgo:10, medAgo:27.9, delta:1.935 },
+  { nome:'william nunes', evJul:1, medJul:26.3, evAgo:2, medAgo:70.7, delta:1.691 },
+  { nome:'Janice Martinotto - SFF - Cord. Galvanica', evJul:10, medJul:39.7, evAgo:45, medAgo:88.2, delta:1.221 },
   { nome:'Margarete Herpich - SFF - Compras', evJul:2, medJul:96.4, evAgo:1, medAgo:101.4, delta:0.051 },
+  { nome:'Cristiano Jacoby Muller', evJul:2, medJul:265.2, evAgo:4, medAgo:275.1, delta:0.037 },
 ];
  
 const melhoraList = document.getElementById('melhoraList');
@@ -451,42 +459,44 @@ pioras.forEach(a => {
   pioraList.appendChild(div);
 });
  
-// ---- Pivot mensal por aprovador (34, ordenado pela média geral) ----
+// ---- Pivot mensal por aprovador (36, ordenado pela média geral) ----
 const pivot = [
+ {nome:"Cristiano Jacoby Muller", geral:{ev:6,media:271.8}, jun:{ev:0,media:null}, jul:{ev:2,media:265.2}, ago:{ev:4,media:275.1}},
  {nome:"Julio Andre Becker - SME - Vendas", geral:{ev:2,media:239.9}, jun:{ev:0,media:null}, jul:{ev:2,media:239.9}, ago:{ev:0,media:null}},
- {nome:"Cristiano Jacoby Muller", geral:{ev:4,media:164.4}, jun:{ev:0,media:null}, jul:{ev:2,media:265.2}, ago:{ev:2,media:63.7}},
- {nome:"Anderson Pepato - CE - Financeiro", geral:{ev:1,media:162.6}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:162.6}},
  {nome:"Alex Gusmao Antunes - CE - Head Novos Negócios", geral:{ev:3,media:134.5}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:3,media:134.5}},
  {nome:"Larissa Amaral - CPG - Faturamento", geral:{ev:2,media:121.0}, jun:{ev:2,media:121.0}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
- {nome:"Margarete Herpich - SFF - Compras", geral:{ev:3,media:98.1}, jun:{ev:0,media:null}, jul:{ev:2,media:96.4}, ago:{ev:1,media:101.4}},
- {nome:"Luana Goncalves dos Santos - SME - Compras", geral:{ev:29,media:77.6}, jun:{ev:2,media:130.0}, jul:{ev:9,media:62.3}, ago:{ev:18,media:79.5}},
- {nome:"Fabiano Piccoli - SCM - Cord. Vendas", geral:{ev:18,media:75.1}, jun:{ev:1,media:0.1}, jul:{ev:9,media:128.7}, ago:{ev:8,media:24.1}},
+ {nome:"Janice Martinotto - SFF - Cord. Galvanica", geral:{ev:57,media:78.8}, jun:{ev:2,media:61.3}, jul:{ev:10,media:39.7}, ago:{ev:45,media:88.2}},
  {nome:"Glaucia Bueno - SCM - Marketing", geral:{ev:5,media:66.3}, jun:{ev:1,media:131.7}, jul:{ev:1,media:112.4}, ago:{ev:3,media:29.1}},
- {nome:"Cristiano Magioni - SUT - Vendas", geral:{ev:2,media:65.8}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:2,media:65.8}},
- {nome:"Janice Martinotto - SFF - Cord. Galvanica", geral:{ev:20,media:58.2}, jun:{ev:2,media:61.4}, jul:{ev:10,media:39.7}, ago:{ev:8,media:80.5}},
- {nome:"Silvia Regina Kilder Gobbi - CE - RH Estratégico", geral:{ev:29,media:55.5}, jun:{ev:3,media:49.7}, jul:{ev:5,media:65.4}, ago:{ev:21,media:54.0}},
- {nome:"Eduardo Bonatto Duarte", geral:{ev:40,media:50.8}, jun:{ev:3,media:68.8}, jul:{ev:17,media:85.1}, ago:{ev:20,media:19.0}},
- {nome:"Marcio Korzeniewski - SUT - Diretor", geral:{ev:7,media:50.7}, jun:{ev:0,media:null}, jul:{ev:3,media:64.8}, ago:{ev:4,media:40.1}},
- {nome:"Jucilaine Grandi - SFF - Laboratorio Galvanica", geral:{ev:27,media:44.0}, jun:{ev:0,media:null}, jul:{ev:10,media:71.5}, ago:{ev:17,media:27.8}},
- {nome:"Nicolas de Araujo - SUT - Marketing", geral:{ev:5,media:43.2}, jun:{ev:3,media:45.3}, jul:{ev:1,media:47.2}, ago:{ev:1,media:33.0}},
- {nome:"Filipe Castilho de Souza", geral:{ev:28,media:41.6}, jun:{ev:1,media:26.1}, jul:{ev:14,media:42.5}, ago:{ev:13,media:41.8}},
- {nome:"Marcelo Rambo Agnes - SUT - Coordenação", geral:{ev:23,media:40.5}, jun:{ev:5,media:24.4}, jul:{ev:6,media:33.7}, ago:{ev:12,media:50.5}},
- {nome:"Cristina Ciotta Andrade", geral:{ev:8,media:38.2}, jun:{ev:1,media:123.2}, jul:{ev:2,media:31.5}, ago:{ev:5,media:23.8}},
- {nome:"Michel Liska", geral:{ev:10,media:29.4}, jun:{ev:0,media:null}, jul:{ev:7,media:35.6}, ago:{ev:3,media:15.0}},
- {nome:"william nunes", geral:{ev:3,media:26.5}, jun:{ev:2,media:26.6}, jul:{ev:1,media:26.3}, ago:{ev:0,media:null}},
- {nome:"Jonathan Langone da Silva - LOGISTICA INTERNA", geral:{ev:3,media:25.2}, jun:{ev:0,media:null}, jul:{ev:1,media:71.3}, ago:{ev:2,media:2.2}},
- {nome:"Pedro Gondin Bido", geral:{ev:2,media:22.1}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:2,media:22.1}},
+ {nome:"Carlos Gustavo Miolo de Oliveira - Diretor TIPI", geral:{ev:1,media:65.2}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:65.2}},
+ {nome:"Anderson Pepato - CE - Financeiro", geral:{ev:4,media:63.0}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:4,media:63.0}},
+ {nome:"Luana Goncalves dos Santos - SME - Compras", geral:{ev:45,media:59.4}, jun:{ev:3,media:94.2}, jul:{ev:9,media:62.3}, ago:{ev:33,media:55.4}},
+ {nome:"Margarete Herpich - SFF - Compras", geral:{ev:5,media:59.1}, jun:{ev:2,media:0.5}, jul:{ev:2,media:96.4}, ago:{ev:1,media:101.4}},
+ {nome:"Fabiano Piccoli - SCM - Cord. Vendas", geral:{ev:38,media:55.0}, jun:{ev:1,media:0.1}, jul:{ev:9,media:128.7}, ago:{ev:28,media:33.3}},
+ {nome:"Silvia Regina Kilder Gobbi - CE - RH Estratégico", geral:{ev:38,media:53.7}, jun:{ev:3,media:49.7}, jul:{ev:5,media:65.4}, ago:{ev:30,media:52.1}},
+ {nome:"Eduardo Bonatto Duarte", geral:{ev:67,media:47.8}, jun:{ev:3,media:68.8}, jul:{ev:17,media:85.1}, ago:{ev:47,media:33.0}},
+ {nome:"Jucilaine Grandi - SFF - Laboratorio Galvanica", geral:{ev:33,media:46.0}, jun:{ev:0,media:null}, jul:{ev:10,media:71.5}, ago:{ev:23,media:34.9}},
+ {nome:"william nunes", geral:{ev:5,media:44.2}, jun:{ev:2,media:26.6}, jul:{ev:1,media:26.3}, ago:{ev:2,media:70.7}},
+ {nome:"Cristiano Magioni - SUT - Vendas", geral:{ev:8,media:39.6}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:8,media:39.6}},
+ {nome:"Nicolas de Araujo - SUT - Marketing", geral:{ev:6,media:38.7}, jun:{ev:3,media:45.3}, jul:{ev:1,media:47.2}, ago:{ev:2,media:24.4}},
+ {nome:"Filipe Castilho de Souza", geral:{ev:44,media:37.1}, jun:{ev:1,media:26.1}, jul:{ev:14,media:42.5}, ago:{ev:29,media:34.8}},
+ {nome:"Altemir Lazzaretti - TIPI", geral:{ev:2,media:36.9}, jun:{ev:1,media:0.6}, jul:{ev:0,media:null}, ago:{ev:1,media:73.2}},
+ {nome:"Cristina Ciotta Andrade", geral:{ev:9,media:34.4}, jun:{ev:1,media:123.1}, jul:{ev:2,media:31.5}, ago:{ev:6,media:20.5}},
+ {nome:"Marcio Korzeniewski - SUT - Diretor", geral:{ev:16,media:34.1}, jun:{ev:0,media:null}, jul:{ev:3,media:64.8}, ago:{ev:13,media:27.0}},
+ {nome:"Mariana Zamboni - SME", geral:{ev:5,media:25.9}, jun:{ev:3,media:13.4}, jul:{ev:0,media:null}, ago:{ev:2,media:44.5}},
+ {nome:"Marcelo Rambo Agnes - SUT - Coordenação", geral:{ev:54,media:25.1}, jun:{ev:5,media:24.4}, jul:{ev:6,media:33.7}, ago:{ev:43,media:24.0}},
+ {nome:"Michel Liska", geral:{ev:19,media:24.6}, jun:{ev:1,media:21.4}, jul:{ev:7,media:35.6}, ago:{ev:11,media:17.9}},
+ {nome:"Marcelo Gerhardt - SME - Vendas", geral:{ev:14,media:22.7}, jun:{ev:0,media:null}, jul:{ev:4,media:9.5}, ago:{ev:10,media:27.9}},
  {nome:"Ronaldo de Santana Sabino", geral:{ev:1,media:21.6}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:21.6}},
  {nome:"Tiago Dalzochio - SME - Engenharia", geral:{ev:1,media:21.4}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:1,media:21.4}},
- {nome:"Marcelo Gerhardt - SME - Vendas", geral:{ev:6,media:16.2}, jun:{ev:0,media:null}, jul:{ev:4,media:9.5}, ago:{ev:2,media:29.4}},
- {nome:"Mariana Zamboni - SME", geral:{ev:3,media:13.4}, jun:{ev:3,media:13.4}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
- {nome:"Altemir Lazzaretti - TIPI", geral:{ev:1,media:0.6}, jun:{ev:1,media:0.6}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
+ {nome:"Jonathan Langone da Silva - LOGISTICA INTERNA", geral:{ev:4,media:19.3}, jun:{ev:0,media:null}, jul:{ev:1,media:71.3}, ago:{ev:3,media:1.9}},
+ {nome:"Pedro Gondin Bido", geral:{ev:3,media:18.1}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:3,media:18.1}},
  {nome:"Daniel Scotti da Silva - SUT - Engenharia", geral:{ev:1,media:0.4}, jun:{ev:1,media:0.4}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
- {nome:"Matiano Milese Silveira", geral:{ev:18,media:0}, jun:{ev:4,media:0}, jul:{ev:6,media:0}, ago:{ev:8,media:0}},
+ {nome:"Matiano Milese Silveira", geral:{ev:74,media:0}, jun:{ev:12,media:0}, jul:{ev:14,media:0}, ago:{ev:48,media:0}},
  {nome:"Gisele Medino Guerra - SFF - Manutencao", geral:{ev:1,media:0}, jun:{ev:1,media:0}, jul:{ev:0,media:null}, ago:{ev:0,media:null}},
- {nome:"Tamara Venturin - SUT - Compras", geral:{ev:8,media:0}, jun:{ev:1,media:0}, jul:{ev:1,media:0}, ago:{ev:6,media:0}},
- {nome:"Amanda Dal Sochio", geral:{ev:9,media:0}, jun:{ev:3,media:0}, jul:{ev:2,media:0}, ago:{ev:4,media:0}},
- {nome:"Vanessa Jucoski - SFF - Compras", geral:{ev:9,media:0}, jun:{ev:0,media:null}, jul:{ev:3,media:0}, ago:{ev:6,media:0}},
+ {nome:"Tamara Venturin - SUT - Compras", geral:{ev:27,media:0}, jun:{ev:1,media:0}, jul:{ev:1,media:0}, ago:{ev:25,media:0}},
+ {nome:"Amanda Dal Sochio", geral:{ev:24,media:0}, jun:{ev:3,media:0}, jul:{ev:3,media:0}, ago:{ev:18,media:0}},
+ {nome:"Vanessa Jucoski - SFF - Compras", geral:{ev:60,media:0}, jun:{ev:0,media:null}, jul:{ev:12,media:0}, ago:{ev:48,media:0}},
+ {nome:"Maike Jose de Souza", geral:{ev:6,media:0}, jun:{ev:0,media:null}, jul:{ev:0,media:null}, ago:{ev:6,media:0}},
 ];
  
 // Retorna classe de cor comparando o mês atual com o mês anterior disponível (só quando ambos têm eventos)
@@ -514,7 +524,7 @@ pivot.forEach(p => {
 });
  
 // ---- Gargalos / referência (n >= 5) ----
-const overallMean = 48.0;
+const overallMean = 36.9;
 const reliable = pivot.filter(p => p.geral.ev >= 5);
  
 const bottleneckBody = document.getElementById('bottleneckTableBody');
@@ -532,11 +542,11 @@ reliable.filter(p => p.geral.media <= overallMean && p.geral.media > 0).sort((a,
  
 // ---- Distribution chart ----
 const dist = [
-  ['Até 8h', 70, 24.8],
-  ['8–24h', 39, 13.8],
-  ['1–2 dias', 39, 13.8],
-  ['2–5 dias', 93, 33.0],
-  ['>5 dias', 41, 14.5],
+  ['Até 8h', 254, 42.9],
+  ['8–24h', 74, 12.5],
+  ['1–2 dias', 61, 10.3],
+  ['2–5 dias', 142, 24.0],
+  ['>5 dias', 61, 10.3],
 ];
 new Chart(document.getElementById('distChart'), {
   type: 'bar',
@@ -552,6 +562,9 @@ new Chart(document.getElementById('distChart'), {
  
 // ---- Top 10 slowest processes ----
 const slow = [
+  ['#338', 24.2, '2', 'Eduardo Bonatto Duarte'],
+  ['#384 (ERP 1381664)', 20.3, '1', 'Cristiano Jacoby Muller'],
+  ['#383 (ERP 1381663)', 20.3, '1', 'Cristiano Jacoby Muller'],
   ['#133', 13.1, '3', 'Marcio Korzeniewski'],
   ['#336 (ERP 1381272)', 12.2, '1', 'Luana Gonçalves'],
   ['#168 (ERP 1380989)', 12.1, '1', 'Cristiano Jacoby Muller'],
@@ -559,9 +572,6 @@ const slow = [
   ['#98 (ERP 1380323)', 10.0, '2', 'Fabiano Piccoli'],
   ['#146 (ERP 1380882)', 10.0, '1', 'Julio Andre Becker'],
   ['#147 (ERP 1380880)', 10.0, '1', 'Julio Andre Becker'],
-  ['#326 (ERP 1381171)', 7.4, '1', 'Luana Gonçalves'],
-  ['#194 (ERP 1380894)', 7.0, '2', 'Fabiano Piccoli'],
-  ['#284 (ERP 1381079)', 6.8, '1', 'Anderson Pepato'],
 ];
 const slowTbody = document.getElementById('slowTableBody');
 slow.forEach(r => {
