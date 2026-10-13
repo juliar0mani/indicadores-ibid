@@ -235,36 +235,36 @@
     <h1>Painel de Adesão — Pedidos por Comprador</h1>
   </div>
   <div class="period-tag">
-    <strong>17/06 a 31/08/2026</strong>
-    5 quinzenas · Total geral vs ERP-TOTVS x Portal (IBID)
+    <strong>17/06 a 30/09/2026</strong>
+    7 quinzenas · Total geral vs ERP-TOTVS x Portal (IBID)
   </div>
 </header>
  
 <div class="kpi-row">
   <div class="kpi">
     <div class="kpi-label">Total de Pedidos</div>
-    <div class="kpi-value mono">1.862</div>
-    <div class="kpi-sub">340 + 408 + 418 + 308 + 388 pedidos</div>
+    <div class="kpi-value mono">2.554</div>
+    <div class="kpi-sub">340 + 408 + 418 + 308 + 388 + 330 + 362 pedidos</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Ritmo atual (última quinzena)</div>
-    <div class="kpi-value mono" style="color:var(--verde)">70,1%</div>
-    <div class="kpi-sub up">▲ +1,9 p.p. vs quinzena anterior</div>
+    <div class="kpi-value mono" style="color:var(--verde)">83,4%</div>
+    <div class="kpi-sub up">▲ +4,6 p.p. vs quinzena anterior</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Comprador líder em adesão</div>
     <div class="kpi-value mono" style="font-size:22px; color:var(--accent)">Amanda</div>
-    <div class="kpi-sub">100% dos pedidos via portal (133 pedidos)</div>
+    <div class="kpi-sub">100% dos pedidos via portal (122 pedidos na quinzena)</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Compradores sem adesão</div>
     <div class="kpi-value mono" style="color:var(--vermelho)">1</div>
-    <div class="kpi-sub">Miguel — 0% no portal (13 pedidos)</div>
+    <div class="kpi-sub">Miguel — 0% no portal (10 pedidos)</div>
   </div>
   <div class="kpi">
     <div class="kpi-label">Adesão do mês</div>
-    <div class="kpi-value mono" style="font-size:20px;">16,7% <span style="color:var(--text-dim); font-size:15px;">&rarr;</span> <span style="color:var(--verde)">69,3%</span></div>
-    <div class="kpi-sub up">▲ Julho → Agosto (mês fechado, 696 pedidos)</div>
+    <div class="kpi-value mono" style="font-size:20px;">69,3% <span style="color:var(--text-dim); font-size:15px;">&rarr;</span> <span style="color:var(--verde)">81,2%</span></div>
+    <div class="kpi-sub up">▲ Agosto → Setembro (mês fechado, 692 pedidos)</div>
   </div>
 </div>
  
@@ -304,7 +304,7 @@
 <div class="section-label">Por comprador — quinzenal</div>
 <div class="grid">
   <div class="panel full">
-    <div class="panel-title">Adesão por comprador — última quinzena (16/08 a 31/08)</div>
+    <div class="panel-title">Adesão por comprador — última quinzena (16/09 a 30/09)</div>
     <div class="panel-desc">Meta de referência: <span id="buyerMetaLabel"></span></div>
     <table>
       <thead>
@@ -323,16 +323,16 @@
 <div class="section-label">Por comprador — comparação mensal</div>
 <div class="grid" style="grid-template-columns:1.2fr 1fr;">
   <div class="panel">
-    <div class="panel-title">Adesão ao portal — Junho x Julho x Agosto</div>
+    <div class="panel-title">Adesão ao portal — Junho a Setembro</div>
     <div class="panel-desc">% de adesão por comprador, lado a lado nos meses fechados</div>
     <canvas id="monthlyBuyerChart"></canvas>
   </div>
   <div class="panel">
     <div class="panel-title">Variação mês a mês</div>
-    <div class="panel-desc">Diferença em pontos percentuais, Julho → Agosto</div>
+    <div class="panel-desc">Diferença em pontos percentuais, Agosto → Setembro</div>
     <table>
       <thead>
-        <tr><th>Comprador</th><th>Jun</th><th>Jul</th><th>Ago</th><th style="width:22%">Variação</th></tr>
+        <tr><th>Comprador</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Set</th><th style="width:22%">Variação</th></tr>
       </thead>
       <tbody id="monthlyCompareBody"></tbody>
     </table>
@@ -349,7 +349,45 @@
     <div class="panel-title">Pontos de atenção</div>
     <div class="panel-desc">Histórico de achados por quinzena, mais recente primeiro</div>
  
-    <div class="section-label" style="margin:0 0 10px;">2ª quinzena de agosto (16 a 31/08)</div>
+    <div class="section-label" style="margin:0 0 10px;">2ª quinzena de setembro (16 a 30/09)</div>
+    <div class="attention-list">
+      <div class="attention-item" style="border-left-color:var(--verde);">
+        <div class="txt"><b>Tamara</b> chegou a 90,0% na quinzena — <span>144 de 160 pedidos pelo portal; no mês subiu de 65,6% (ago) para 88,7% (set). <b>Amanda</b> segue em 100% (122 pedidos pelo portal)</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>Pendente de sincronização com ERP</b> quase dobrou — <span>29 pedidos (9,6% dos pedidos do portal), contra 15 (5,8%) na quinzena anterior; maior marca da série, vale escalar para checar a integração</span></div>
+      </div>
+      <div class="attention-item">
+        <div class="txt"><b>Miguel</b> segue sem nenhum pedido pelo portal — <span>100% ERP, 10 pedidos na quinzena e 27 em setembro (eram 19 em agosto)</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>Vanessa</b> fechou setembro abaixo da meta de 50% — <span>46,6% no mês (27 de 58), apesar de a 2ª quinzena ter subido para 71,4% (15 de 21)</span></div>
+      </div>
+      <div class="attention-item info">
+        <div class="txt"><b>Pedidos de tabela de preço</b> não subiram como imediato no portal — <span>alguns pedidos de tabela de preço não foram gerados como pedido imediato no portal e seguiram pelo ERP, contribuindo para o volume ERP de setembro (não quantificado)</span></div>
+      </div>
+      <div class="attention-item info">
+        <div class="txt"><b>Causas já mapeadas</b> seguem valendo — <span>análise de investimento, imobilizados e beneficiamento continuam fora do fluxo do portal</span></div>
+      </div>
+    </div>
+ 
+    <div class="section-label" style="margin:24px 0 10px;">1ª quinzena de setembro (01 a 15/09)</div>
+    <div class="attention-list">
+      <div class="attention-item" style="border-left-color:var(--verde);">
+        <div class="txt"><b>Adesão geral</b> subiu para 78,8% — <span>260 de 330 pedidos pelo portal (+8,7 p.p. vs 2ª quinzena de agosto); <b>Alexandre</b> aparece pela primeira vez, com 4 pedidos, todos pelo portal</span></div>
+      </div>
+      <div class="attention-item">
+        <div class="txt"><b>Miguel</b> segue sem nenhum pedido pelo portal — <span>100% ERP, 17 pedidos na quinzena</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>Vanessa</b> com a menor adesão entre quem já usa o portal — <span>32,4% (12 de 37 pedidos), abaixo da meta de 50%</span></div>
+      </div>
+      <div class="attention-item warn">
+        <div class="txt"><b>Pendente de sincronização com ERP</b> soma 15 pedidos (5,8% dos pedidos do portal) — <span>abaixo dos 23 da quinzena anterior, mas segue valendo acompanhar</span></div>
+      </div>
+    </div>
+ 
+    <div class="section-label" style="margin:24px 0 10px;">2ª quinzena de agosto (16 a 31/08)</div>
     <div class="attention-list">
       <div class="attention-item" style="border-left-color:var(--verde);">
         <div class="txt"><b>Amanda</b> atingiu 100% de adesão na quinzena — <span>133 de 133 pedidos feitos pelo portal, a maior marca individual do período todo</span></div>
@@ -387,7 +425,7 @@
 </div>
  
 <footer>
-  Fonte: indicador_pedidos.xlsx (abas RESUMO, fluxo_jun, fluxo1_jul, fluxo2_jul, fluxo1_ago, fluxo2_ago).
+  Fonte: indicador_pedidos.xlsx (abas RESUMO, fluxo_jun, fluxo1_jul, fluxo2_jul, fluxo1_ago, fluxo2_ago, fluxo_set).<br>Nota: quando o nº de pedidos no portal supera o total do ERP (pedidos do portal ainda sem nº ERP), a adesão do comprador é limitada a 100% (Amanda, Maike).
 </footer>
  
 <script>
@@ -395,24 +433,25 @@ Chart.defaults.color = '#8fa1a7';
 Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
 Chart.defaults.font.size = 11.5;
  
-const periods = ['Jun (17/06-01/07)', 'Jul (02/07-15/07)', 'Jul (16/07-31/07)', 'Ago (01/08-15/08)', 'Ago (16/08-31/08)'];
+const periods = ['Jun (17/06-01/07)', 'Jul (02/07-15/07)', 'Jul (16/07-31/07)', 'Ago (01/08-15/08)', 'Ago (16/08-31/08)', 'Set (01/09-15/09)', 'Set (16/09-30/09)'];
  
 const overall = {
-  total: [340, 408, 418, 308, 388],
-  erp: [290, 380, 308, 98, 116],
-  ibid: [50, 28, 110, 210, 272],
-  pct: [14.7, 6.9, 26.3, 68.2, 70.1]
+  total: [340, 408, 418, 308, 388, 330, 362],
+  erp: [290, 380, 308, 98, 116, 70, 60],
+  ibid: [50, 28, 110, 210, 272, 260, 302],
+  pct: [14.7, 6.9, 26.3, 68.2, 70.1, 78.8, 83.4]
 };
  
 // Meta de adesão — fonte única, usada na tabela do setor (macro) e na tabela por comprador (individual)
 const monthlyGoals = { Jul: 20, Ago: 40, Set: 50, Out: 75, Nov: 85, Dez: 100 };
-const currentMonth = 'Ago'; // mês de referência atual — atualizar aqui a cada virada de mês (a meta de Ago vale para as 2 quinzenas)
+const currentMonth = 'Set'; // mês de referência atual — atualizar aqui a cada virada de mês (a meta de Ago vale para as 2 quinzenas)
  
 const goalMonths = Object.keys(monthlyGoals);
 const goalTarget = Object.values(monthlyGoals);
 // Realizado: só preenchido para meses já fechados. Atualizar aqui a cada fechamento de mês.
 // Agosto fechou com as 2 quinzenas (01/08-15/08 + 16/08-31/08): 482 de 696 pedidos pelo portal.
-const goalActual = [16.7, 69.3, null, null, null, null];
+// Setembro fechou com as 2 quinzenas (01/09-15/09 + 16/09-30/09): 562 de 692 pedidos pelo portal.
+const goalActual = [16.7, 69.3, 81.2, null, null, null];
  
 const goalBody = document.getElementById('goalTableBody');
 goalMonths.forEach((mes, i) => {
@@ -486,14 +525,15 @@ new Chart(document.getElementById('volumeChart'), {
   }
 });
  
-// Buyer table — última quinzena (16/08 a 31/08)
+// Buyer table — última quinzena (16/09 a 30/09)
 const buyers = [
-  { name: 'Matiano', portal: 31, total: 42 },
-  { name: 'Tamara', portal: 87, total: 141 },
-  { name: 'Vanessa', portal: 19, total: 40 },
-  { name: 'Amanda', portal: 133, total: 133 },
-  { name: 'Miguel', portal: 0, total: 13 },
-  { name: 'Maike', portal: 2, total: 10 },
+  { name: 'Matiano', portal: 18, total: 18 },
+  { name: 'Tamara', portal: 144, total: 160 },
+  { name: 'Vanessa', portal: 15, total: 21 },
+  { name: 'Amanda', portal: 122, total: 122 }, // ERP 116 < portal 122 (pedidos do portal sem nº ERP): limitado a 100%
+  { name: 'Miguel', portal: 0, total: 10 },
+  { name: 'Maike', portal: 1, total: 1 },
+  { name: 'Alexandre', portal: 2, total: 2 },
 ];
 const meta = monthlyGoals[currentMonth]; // mesma meta usada na tabela do setor, pro mês corrente
 document.getElementById('buyerMetaLabel').textContent = `${meta}% dos pedidos via portal (${currentMonth})`;
@@ -524,13 +564,14 @@ buyers.forEach(b => {
  
 // Monthly performance by buyer (Junho x Julho x Agosto) — meses fechados, real month-over-month comparison
 const monthlyBuyers = [
-  { name: 'Amanda',  junTotal: 91,  junIbid: 20, julTotal: 288, julIbid: 48, agoTotal: 215, agoIbid: 189 },
-  { name: 'Matiano', junTotal: 30,  junIbid: 8,  julTotal: 62,  julIbid: 16, agoTotal: 73,  agoIbid: 55  },
-  { name: 'Tamara',  junTotal: 112, junIbid: 7,  julTotal: 317, julIbid: 60, agoTotal: 273, agoIbid: 179 },
-  { name: 'Vanessa', junTotal: 20,  junIbid: 2,  julTotal: 63,  julIbid: 14, agoTotal: 89,  agoIbid: 50  },
-  { name: 'Gisele',  junTotal: 62,  junIbid: 13, julTotal: 0,   julIbid: 0,  agoTotal: 0,   agoIbid: 0   },
-  { name: 'Maike',   junTotal: 0,   junIbid: 0,  julTotal: 2,   julIbid: 0,  agoTotal: 17,  agoIbid: 8   },
-  { name: 'Miguel',  junTotal: 0,   junIbid: 0,  julTotal: 12,  julIbid: 0,  agoTotal: 19,  agoIbid: 0   },
+  { name: 'Amanda',  junTotal: 91,  junIbid: 20, julTotal: 288, julIbid: 48, agoTotal: 215, agoIbid: 189, setTotal: 240, setIbid: 240 }, // set: ERP 221 < portal 240 -> limitado a 100%
+  { name: 'Matiano', junTotal: 30,  junIbid: 8,  julTotal: 62,  julIbid: 16, agoTotal: 73,  agoIbid: 55,  setTotal: 52,  setIbid: 36  },
+  { name: 'Tamara',  junTotal: 112, junIbid: 7,  julTotal: 317, julIbid: 60, agoTotal: 273, agoIbid: 179, setTotal: 282, setIbid: 250 },
+  { name: 'Vanessa', junTotal: 20,  junIbid: 2,  julTotal: 63,  julIbid: 14, agoTotal: 89,  agoIbid: 50,  setTotal: 58,  setIbid: 27  },
+  { name: 'Gisele',  junTotal: 62,  junIbid: 13, julTotal: 0,   julIbid: 0,  agoTotal: 0,   agoIbid: 0,   setTotal: 0,   setIbid: 0   },
+  { name: 'Maike',   junTotal: 0,   junIbid: 0,  julTotal: 2,   julIbid: 0,  agoTotal: 17,  agoIbid: 8,   setTotal: 3,   setIbid: 3   }, // set: ERP 2 < portal 3 -> limitado a 100%
+  { name: 'Miguel',  junTotal: 0,   junIbid: 0,  julTotal: 12,  julIbid: 0,  agoTotal: 19,  agoIbid: 0,   setTotal: 27,  setIbid: 0   },
+  { name: 'Alexandre', junTotal: 0, junIbid: 0,  julTotal: 0,   julIbid: 0,  agoTotal: 0,   agoIbid: 0,   setTotal: 6,   setIbid: 6   },
 ];
  
 new Chart(document.getElementById('monthlyBuyerChart'), {
@@ -555,6 +596,12 @@ new Chart(document.getElementById('monthlyBuyerChart'), {
         data: monthlyBuyers.map(b => b.agoTotal ? +(b.agoIbid / b.agoTotal * 100).toFixed(1) : null),
         backgroundColor: '#d98a3d',
         borderRadius: 3
+      },
+      {
+        label: 'Setembro',
+        data: monthlyBuyers.map(b => b.setTotal ? +(b.setIbid / b.setTotal * 100).toFixed(1) : null),
+        backgroundColor: '#e9edee',
+        borderRadius: 3
       }
     ]
   },
@@ -572,11 +619,12 @@ monthlyBuyers.forEach(b => {
   const junPct = b.junTotal ? (b.junIbid / b.junTotal * 100) : null;
   const julPct = b.julTotal ? (b.julIbid / b.julTotal * 100) : null;
   const agoPct = b.agoTotal ? (b.agoIbid / b.agoTotal * 100) : null;
+  const setPct = b.setTotal ? (b.setIbid / b.setTotal * 100) : null;
   let deltaHtml;
-  if (julPct === null || agoPct === null) {
+  if (agoPct === null || setPct === null) {
     deltaHtml = `<span class="mono" style="color:var(--text-dim);">—</span>`;
   } else {
-    const delta = agoPct - julPct;
+    const delta = setPct - agoPct;
     const color = delta > 0 ? 'var(--verde)' : (delta < 0 ? 'var(--vermelho)' : 'var(--text-dim)');
     const arrow = delta > 0 ? '▲' : (delta < 0 ? '▼' : '—');
     deltaHtml = `<span class="mono" style="color:${color}; font-weight:600;">${arrow} ${Math.abs(delta).toFixed(1)} p.p.</span>`;
@@ -587,6 +635,7 @@ monthlyBuyers.forEach(b => {
     <td class="mono">${junPct !== null ? junPct.toFixed(1) + '%' : '—'}</td>
     <td class="mono">${julPct !== null ? julPct.toFixed(1) + '%' : '—'}</td>
     <td class="mono">${agoPct !== null ? agoPct.toFixed(1) + '%' : '—'}</td>
+    <td class="mono">${setPct !== null ? setPct.toFixed(1) + '%' : '—'}</td>
     <td>${deltaHtml}</td>
   `;
   compareBody.appendChild(tr);
@@ -598,7 +647,9 @@ const statusData = {
   'Jul 1ª q':{ 'Em aprovação do fornecedor':2,'Em configuração':1,'Pedido cancelado':1,'Pedido emitido':9,'Pendente sinc. ERP':1,'Recebido total':14 },
   'Jul 2ª q':{ 'Em alteração':5,'Em aprovação':29,'Em aprovação do fornecedor':15,'Pedido cancelado':2,'Pedido emitido':40,'Pendente sinc. ERP':6,'Recebido parcial':2,'Recebido total':11 },
   'Ago 1ª q':{ 'Em alteração':8,'Em aprovação':17,'Em aprovação do fornecedor':21,'Em configuração':6,'Pedido cancelado':7,'Pedido emitido':105,'Pendente sinc. ERP':10,'Recebido parcial':4,'Recebido total':32 },
-  'Ago 2ª q':{ 'Em alteração':7,'Em aprovação':6,'Em aprovação do fornecedor':12,'Em configuração':1,'Pedido cancelado':16,'Pedido emitido':71,'Pendente sinc. ERP':23,'Recebido parcial':14,'Recebido total':122 }
+  'Ago 2ª q':{ 'Em alteração':7,'Em aprovação':6,'Em aprovação do fornecedor':12,'Em configuração':1,'Pedido cancelado':16,'Pedido emitido':71,'Pendente sinc. ERP':23,'Recebido parcial':14,'Recebido total':122 },
+  'Set 1ª q':{ 'Em alteração':9,'Em aprovação':1,'Em aprovação do fornecedor':23,'Pedido cancelado':12,'Pedido emitido':64,'Pendente sinc. ERP':15,'Recebido parcial':18,'Recebido total':118 },
+  'Set 2ª q':{ 'Em alteração':17,'Em aprovação':22,'Em aprovação do fornecedor':29,'Pedido cancelado':7,'Pedido emitido':109,'Pendente sinc. ERP':29,'Recebido parcial':10,'Recebido total':79 }
 };
 const allStatuses = ['Pedido emitido','Recebido total','Recebido parcial','Em aprovação','Em aprovação do fornecedor','Em alteração','Pendente sinc. ERP','Em configuração','Pedido cancelado'];
 const statusColors = {
@@ -633,4 +684,3 @@ new Chart(document.getElementById('statusChart'), {
  
 </body>
 </html>
- 
